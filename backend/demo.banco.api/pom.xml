@@ -10,7 +10,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     
-    <groupId>jairo.jorquera</groupId>
+    <groupId>jairojorquera</groupId>
     <artifactId>demo.banco.api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>demo.banco.api</name>

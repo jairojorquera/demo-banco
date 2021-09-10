@@ -1,4 +1,4 @@
-package jairo.jorquera.demo.banco;
+package jairojorquera.demo.banco;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
