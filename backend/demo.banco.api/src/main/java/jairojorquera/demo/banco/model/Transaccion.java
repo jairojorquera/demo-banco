@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -16,7 +18,8 @@ import javax.persistence.Table;
 public class Transaccion implements Serializable {
 
     @Id
-    private BigDecimal idTransaccion;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private BigDecimal id;
     private LocalDateTime fecha;
     private BigDecimal monto;
     private int tipo;
@@ -26,8 +29,8 @@ public class Transaccion implements Serializable {
     public Transaccion() {
     }
     
-    public Transaccion(BigDecimal idTransaccion, LocalDateTime fecha, BigDecimal monto, int tipo, String rut, String rutRelacionado) {
-        this.idTransaccion = idTransaccion;
+    public Transaccion(BigDecimal id, LocalDateTime fecha, BigDecimal monto, int tipo, String rut, String rutRelacionado) {
+        this.id = id;
         this.fecha = fecha;
         this.monto = monto;
         this.tipo = tipo;
@@ -35,12 +38,12 @@ public class Transaccion implements Serializable {
         this.rutRelacionado = rutRelacionado;
     }
 
-    public BigDecimal getIdTransaccion() {
-        return idTransaccion;
+    public BigDecimal getId() {
+        return id;
     }
 
-    public void setIdTransaccion(BigDecimal idTransaccion) {
-        this.idTransaccion = idTransaccion;
+    public void setId(BigDecimal id) {
+        this.id = id;
     }
 
     public LocalDateTime getFecha() {
