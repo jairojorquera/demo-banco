@@ -1,19 +1,30 @@
 <div class="container">
+
+  <header
+    class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+    <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+      <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+        <use xlink:href="#bootstrap" />
+      </svg>
+    </a>
+
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+      <li><a routerLink="/transacciones" class="nav-link px-2 link-secondary">Transacciones</a></li>
+      <li><a href="#" class="nav-link px-2 link-dark">Depositar</a></li>
+      <li><a href="#" class="nav-link px-2 link-dark">Hacer retiro</a></li>
+      <li><a href="#" class="nav-link px-2 link-dark">Transacciones</a></li>
+    </ul>
+
+    <div class="col-md-3 text-end">
+      <button type="button" class="btn btn-outline-primary me-2">Iniciar Sesión</button>
+      <button type="button" class="btn btn-primary">Registrarse</button>
+    </div>
+  </header>
+
+
+
   <div class="row">
-    <div class="col-md-12">
-      <div class="card bg-dark my-5">
-        <div class="card-body">
-          <h2 class="card-title text-center text-white py-3">{{ title }}</h2>
-          <ul class="text-center list-inline py-3">
-            <li class="list-inline-item">
-              <a routerLink="/usuarios" class="btn btn-info">Usuarios</a>
-            </li>
-            <li class="list-inline-item">
-              <a routerLink="/transacciones" class="btn btn-info">Transacciones</a>
-            </li>
-          </ul>
-        </div>
-      </div>
+    <div class="col-md-12">      
       <router-outlet></router-outlet>
     </div>
   </div>
