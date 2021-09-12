@@ -7,9 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
+  usuario ="Jairo";
+  password ="";
+
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
+  onLogin(event?: MouseEvent) {
+    alert(this.usuario);
+
+
+    if (event) { event.stopPropagation(); }
+  }
 }
