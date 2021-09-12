@@ -3,6 +3,7 @@ package jairojorquera.demo.banco.service;
 import jairojorquera.demo.banco.model.Transaccion;
 import jairojorquera.demo.banco.model.repository.TransaccionRepositorio;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -29,6 +30,11 @@ public class TransaccionService {
     }
 
     public void saveTransaccion(Transaccion transaccion) {
+
+        if (transaccion != null && transaccion.getFecha() == null) {
+            transaccion.setFecha(LocalDateTime.now());
+        }
+
         transaccionRepositorio.save(transaccion);
     }
 
