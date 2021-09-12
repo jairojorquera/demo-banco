@@ -1,0 +1,26 @@
+<div class="card my-5">
+    <div class="card-body">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Id</th>
+                    <th scope="col">R.U.T.</th>                    
+                    <th scope="col">Monto</th>
+                    <th scope="col">Rut Relacionado</th>
+                    <th scope="col">Tipo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let transaccion of transacciones">
+                    <td>{{ transaccion.fecha }}</td>
+                    <td>{{ transaccion.id }}</td>
+                    <td>{{ transaccion.rut }}</td>
+                    <td>{{ transaccion.monto }}</td>
+                    <td>{{ transaccion.rutRelacionado }}</td>
+                    <td>{{ transaccion.tipo }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
