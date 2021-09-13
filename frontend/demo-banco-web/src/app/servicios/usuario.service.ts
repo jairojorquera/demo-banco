@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Usuario } from '../modelo/usuario';
 import { Observable } from 'rxjs';
 
+
 @Injectable({ providedIn: 'root' })
 export class UsuarioService {
 
@@ -20,4 +21,12 @@ export class UsuarioService {
   public save(user: Usuario) {
     return this.http.post<Usuario>(this.usuarioUrl, user);
   }
+
+  public login(usuario: string): Observable<Usuario> {
+    // TODO: enviar usuario firmado JWT
+    let url = this.usuarioUrl + "/" + usuario;
+    return this.http.get<Usuario>(url);
+  }
+
+
 }

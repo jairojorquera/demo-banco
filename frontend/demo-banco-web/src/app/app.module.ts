@@ -29,6 +29,7 @@ import { MisTransaccionesComponent } from './mis-transacciones/mis-transacciones
     AppRoutingModule,
     HttpClientModule,
     FormsModule
+  
   ],
   providers: [],
   bootstrap: [AppComponent]

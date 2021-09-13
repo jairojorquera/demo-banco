@@ -34,6 +34,7 @@ public class UsuarioController {
 
     @GetMapping("/{rut}")
     public ResponseEntity<Usuario> get(@PathVariable String rut) {
+        logger.info("get [001] rut: {}", rut);
         try {
 
             Usuario usuario = usuarioService.getUsuario(rut);
@@ -46,11 +47,13 @@ public class UsuarioController {
 
     @PostMapping()
     public void add(@RequestBody Usuario usuario) {
+        logger.info("add [001] usuario: {}", usuario);
         usuarioService.saveUsuario(usuario);
     }
 
     @PutMapping("/{rut}")
     public ResponseEntity<?> update(@RequestBody Usuario usuario, @PathVariable String rut) {
+        logger.info("update [001] rut: {}", rut);
         try {
             usuarioService.getUsuario(rut);
             usuario.setRut(rut);

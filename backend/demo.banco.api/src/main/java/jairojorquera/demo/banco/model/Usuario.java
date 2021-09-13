@@ -1,5 +1,6 @@
 package jairojorquera.demo.banco.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,6 +18,8 @@ public class Usuario implements Serializable {
     private String rut;
     private String nombre;
     private String email;
+    
+    @JsonIgnore
     private String password;
 
     public Usuario() {
@@ -59,6 +62,11 @@ public class Usuario implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "rut=" + rut + ", nombre=" + nombre + ", email=" + email + '}';
     }
 
 }
