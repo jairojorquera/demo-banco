@@ -18,6 +18,11 @@ export class TransaccionesService {
     return this.http.get<Transaccion[]>(this.transaccionUrl);
   }
 
+  public find(rut: string): Observable<Transaccion[]> {
+    let url = this.transaccionUrl + "/" + rut;
+    return this.http.get<Transaccion[]>(url);
+  }
+
   public save(transaccion: Transaccion) {
     return this.http.post<Transaccion>(this.transaccionUrl, transaccion);
   }

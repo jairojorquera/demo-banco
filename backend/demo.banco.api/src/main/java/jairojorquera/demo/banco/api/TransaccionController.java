@@ -38,8 +38,6 @@ public class TransaccionController {
     
     @PostMapping()
     public void add(@RequestBody Transaccion transaccion) {
-        
-
         transaccionService.saveTransaccion(transaccion);
     }
     

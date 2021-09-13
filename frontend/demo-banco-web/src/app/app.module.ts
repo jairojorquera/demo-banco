@@ -13,6 +13,7 @@ import { RetirosComponent } from './retiros/retiros.component';
 import { MisTransaccionesComponent } from './mis-transacciones/mis-transacciones.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,

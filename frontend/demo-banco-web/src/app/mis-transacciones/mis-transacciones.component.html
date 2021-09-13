@@ -1,1 +1,33 @@
-<p>mis-transacciones works!</p>
+<div class="card my-5">
+    <div class="card-body">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Id</th>
+                    <th scope="col">R.U.T.</th>
+                    <th scope="col">Obs</th>
+                    <th scope="col">Ingreso</th>
+                    <th scope="col">Egreso</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let transaccion of transacciones">
+                    <td>{{ transaccion.fecha | date:'medium' }}</td>
+                    <td>{{ transaccion.id }}</td>
+                    <td>{{ transaccion.rut }}</td>
+                    <td>{{ transaccion.customDescripcion() }}</td>
+                    <td class="text-right">{{ ((transaccion.tipo == 1)? transaccion.monto : 0) | currency:'CLP':'symbol-narrow' }}</td>
+                    <td class="text-right">{{ ((transaccion.tipo == 1)? 0: transaccion.monto) | currency:'CLP':'symbol-narrow' }}</td>                    
+                </tr>
+                <tr>
+                    <td colspan="3" class="text-right font-weight-bold">Totales:</td>
+                    <td  class="text-right font-weight-bold">{{ ingresos | currency:'CLP':'symbol-narrow'}}</td>
+                    <td  class="text-right font-weight-bold">{{ egresos | currency:'CLP':'symbol-narrow'}}</td>
+                    <td  class="text-right font-weight-bold">{{ total | currency:'CLP':'symbol-narrow'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
