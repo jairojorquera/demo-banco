@@ -20,11 +20,11 @@ export class Transaccion {
     }
 
     customDescripcion(): string {
-        if(this.isRetiro()) return "Retiro de dinero";
-        if(this.isDeposito()) return "Depósito de dinero";
-        if(this.isTransferenciaHacia()) return "Transferencia enviado al R.U.T. " + this.rutRelacionado;
-        if(this.isTransferenciaDesde()) return "Transferencia recibida de R.U.T. " + this.rutRelacionado;
+        if (this.isRetiro()) return "Retiro de dinero";
+        if (this.isDeposito()) return "Depósito de dinero";
+        if (this.isTransferenciaHacia()) return "Transferencia enviado al R.U.T. " + this.rutRelacionado;
+        if (this.isTransferenciaDesde()) return "Transferencia recibida de R.U.T. " + this.rutRelacionado;
         return "";
-        
+
     }
 }

@@ -20,7 +20,9 @@ export class MisTransaccionesComponent implements OnInit {
     let rut = "16349750-6";
 
     this.transaccionesService.find(rut).subscribe(data => {
-      this.transacciones = data;
+
+      this.transacciones = data.map(x => Object.assign(new Transaccion(), x));
+
       this.ingresos = this.calcularTotalIngresos();
       this.egresos = this.calcularTotalEgresos();
       this.total = this.ingresos - this.egresos;
@@ -38,4 +40,6 @@ export class MisTransaccionesComponent implements OnInit {
       return (record.tipo !== 1) ? sum : sum + record.monto;
     }, 0);
   }
+
+
 }

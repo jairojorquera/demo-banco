@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -12,7 +13,9 @@ import { DepositosComponent } from './depositos/depositos.component';
 import { RetirosComponent } from './retiros/retiros.component';
 import { MisTransaccionesComponent } from './mis-transacciones/mis-transacciones.component';
 
-
+import localeEs from '@angular/common/locales/es';
+import  { registerLocaleData } from '@angular/common';
+registerLocaleData(localeEs, 'es');
 
 @NgModule({
   declarations: [
@@ -32,7 +35,7 @@ import { MisTransaccionesComponent } from './mis-transacciones/mis-transacciones
     FormsModule
   
   ],
-  providers: [],
+  providers: [ { provide: LOCALE_ID, useValue: 'es-CL' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
