@@ -1,1 +1,16 @@
-<p>depositos works!</p>
+<div class="container">
+    <h1 class="h3 mb-3 fw-normal text-center">Deposito</h1>
+    <div class="form-group">
+        <div class="col-md-12">
+            <label for="floatingInput">Ingrese el valor a depositar:</label>
+            <input type="text" [(ngModel)]="monto" class="form-control" id="floatingInput" placeholder="0">            
+        </div>
+    </div>    
+    <div class="row">
+        <div class="col-md-12">
+            <button class="w-100 btn btn-lg btn-primary" type="button" (click)="onDeposito()">Depositar</button>
+            
+        </div>
+     
+    </div>
+</div>
