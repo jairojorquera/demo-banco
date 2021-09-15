@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Transaccion } from '../modelo/transaccion';
 import { TransaccionesService } from '../servicios/transacciones.service';
+import { StorageService } from '../servicios/storage.service';
 
 @Component({
   selector: 'app-mis-transacciones',
@@ -14,12 +15,12 @@ export class MisTransaccionesComponent implements OnInit {
   egresos: number = 0;
   total: number = 0;
 
-  constructor(private transaccionesService: TransaccionesService) { }
+  constructor(private transaccionesService: TransaccionesService, private storageService: StorageService) { }
 
   ngOnInit(): void {
-    let rut = "16349750-6";
 
-    this.transaccionesService.find(rut).subscribe(data => {
+    let sesion = this.storageService.getSesion();
+    this.transaccionesService.find(sesion.usuario.rut).subscribe(data => {
 
       this.transacciones = data.map(x => Object.assign(new Transaccion(), x));
 

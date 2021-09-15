@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Sesion } from "../modelo/sesion";
-import { Usuario } from "../modelo/usuario";
+
 
 
 @Injectable({
@@ -12,35 +12,37 @@ export class StorageService {
   private sesionActiva: Boolean = false;
   private sesion!: Sesion;
 
-  constructor(private router: Router) {
-    this.loadSessionData();
+  constructor(private router: Router) {    
 
   }
 
   setSesion(sesion: Sesion): void {
-    localStorage.setItem('currentUser', JSON.stringify(sesion));
+    sessionStorage.setItem('currentUser', JSON.stringify(sesion));
   }
 
   borrarSesion(): void {
-    localStorage.removeItem('currentUser');
+    sessionStorage.removeItem('currentUser');
   }
 
-  getSesion(): Sesion {
+  getSesion(): Sesion {   
+    this.loadSessionData(); 
     return this.sesion;
   }
 
   loadSessionData() {
-    var sessionStr = localStorage.getItem('currentUser');
+    var sessionStr = sessionStorage.getItem('currentUser');
     if (sessionStr) {
       try {
-        this.sesion = JSON.parse(localStorage.getItem('currentUser')!) as Sesion;
-        this.sesionActiva = true;
+        this.sesion = JSON.parse(sessionStorage.getItem('currentUser')!) as Sesion;
+        this.sesionActiva = true;        
       } catch (error) {
         this.sesionActiva = false;
         this.borrarSesion();
+        this.router.navigate(['/', 'login']);
       }
     } else {
       this.sesionActiva = false;
+      this.router.navigate(['/', 'login']);
     }
   };
 
