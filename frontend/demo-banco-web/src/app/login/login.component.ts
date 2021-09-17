@@ -37,10 +37,10 @@ export class LoginComponent implements OnInit {
         };
 
         this.storageService.setSesion(this.sesion);
-        
+
         Swal.fire({
           title: 'Bienvenido',
-          text: 'Bienvenido' + data.nombre,
+          text: 'Bienvenido ' + data.nombre,
           icon: 'info',
           timer: 2000
 

@@ -6,7 +6,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,13 +28,13 @@ public class TransaccionService {
         return transaccionRepositorio.findAllTransaccionPorRut(rut);
     }
 
-    public void saveTransaccion(Transaccion transaccion) {
+    public Transaccion saveTransaccion(Transaccion transaccion) {
 
         if (transaccion != null && transaccion.getFecha() == null) {
             transaccion.setFecha(LocalDateTime.now());
         }
 
-        transaccionRepositorio.save(transaccion);
+        return transaccionRepositorio.save(transaccion);
     }
 
     public Transaccion getTransaccion(BigDecimal id) {

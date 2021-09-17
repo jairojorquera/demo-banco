@@ -86,4 +86,9 @@ public class Transaccion implements Serializable {
         this.rutRelacionado = rutRelacionado;
     }
 
+    @Override
+    public String toString() {
+        return "Transaccion{" + "id=" + id + ", fecha=" + fecha + ", monto=" + monto + ", tipo=" + tipo + ", rut=" + rut + ", rutRelacionado=" + rutRelacionado + '}';
+    }
+
 }

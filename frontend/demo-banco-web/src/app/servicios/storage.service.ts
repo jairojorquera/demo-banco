@@ -17,11 +17,11 @@ export class StorageService {
   }
 
   setSesion(sesion: Sesion): void {
-    sessionStorage.setItem('currentUser', JSON.stringify(sesion));
+    localStorage.setItem('currentUser', JSON.stringify(sesion));
   }
 
   borrarSesion(): void {
-    sessionStorage.removeItem('currentUser');
+    localStorage.removeItem('currentUser');
   }
 
   getSesion(): Sesion {   
@@ -30,10 +30,10 @@ export class StorageService {
   }
 
   loadSessionData() {
-    var sessionStr = sessionStorage.getItem('currentUser');
+    var sessionStr = localStorage.getItem('currentUser');
     if (sessionStr) {
       try {
-        this.sesion = JSON.parse(sessionStorage.getItem('currentUser')!) as Sesion;
+        this.sesion = JSON.parse(localStorage.getItem('currentUser')!) as Sesion;
         this.sesionActiva = true;        
       } catch (error) {
         this.sesionActiva = false;
