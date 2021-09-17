@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Transaccion } from '../modelo/transaccion';
-import { TransaccionesService } from '../servicios/transacciones.service';
-import { StorageService } from '../servicios/storage.service';
+import { Transaccion } from '../../modelo/transaccion';
+import { TransaccionesService } from '../../servicios/transacciones.service';
+import { StorageService } from '../../servicios/storage.service';
 
 @Component({
   selector: 'app-mis-transacciones',

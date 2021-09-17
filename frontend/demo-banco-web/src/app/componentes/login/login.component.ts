@@ -2,9 +2,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 
-import { Sesion } from '../modelo/sesion';
-import { UsuarioService } from '../servicios/usuario.service';
-import { StorageService } from '../servicios/storage.service';
+import { Sesion } from '../../modelo/sesion';
+import { UsuarioService } from '../../servicios/usuario.service';
+import { StorageService } from '../../servicios/storage.service';
 
 import Swal from 'sweetalert2';
 
