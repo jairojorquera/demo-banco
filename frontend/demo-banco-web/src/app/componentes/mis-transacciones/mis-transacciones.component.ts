@@ -3,6 +3,8 @@ import { Transaccion } from '../../modelo/transaccion';
 import { TransaccionesService } from '../../servicios/transacciones.service';
 import { StorageService } from '../../servicios/storage.service';
 
+const FILTER_PAG_REGEX = /[^0-9]/g;
+
 @Component({
   selector: 'app-mis-transacciones',
   templateUrl: './mis-transacciones.component.html',
@@ -14,6 +16,9 @@ export class MisTransaccionesComponent implements OnInit {
   ingresos: number = 0;
   egresos: number = 0;
   total: number = 0;
+  page:number = 1;
+  pageSize:number = 10;
+  collectionSize = 0;
 
   constructor(private transaccionesService: TransaccionesService, private storageService: StorageService) { }
 
@@ -27,8 +32,15 @@ export class MisTransaccionesComponent implements OnInit {
       this.ingresos = this.calcularTotalIngresos();
       this.egresos = this.calcularTotalEgresos();
       this.total = this.ingresos - this.egresos;
-
+      this.collectionSize = this.transacciones.length;
     });
+  }
+
+  selectPage(page: string) {
+    this.page = parseInt(page, 10) || 1;
+  }
+  formatInput(input: HTMLInputElement) {
+    input.value = input.value.replace(FILTER_PAG_REGEX, '');
   }
 
   calcularTotalEgresos(): number {

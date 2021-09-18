@@ -15,6 +15,7 @@ import { MisTransaccionesComponent } from './componentes/mis-transacciones/mis-t
 
 import localeEs from '@angular/common/locales/es';
 import  { registerLocaleData } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 registerLocaleData(localeEs, 'es');
 
@@ -33,7 +34,8 @@ registerLocaleData(localeEs, 'es');
     BrowserModule,     
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   
   ],
   providers: [ { provide: LOCALE_ID, useValue: 'es-CL' }],
