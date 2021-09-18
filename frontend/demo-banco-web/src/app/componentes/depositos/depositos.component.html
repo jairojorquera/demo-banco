@@ -1,23 +1,31 @@
-<div class="container">
-    <form>
-        <h1 class="h3 mb-3 fw-normal text-center">Depósito</h1>
-        <div class="form-group">
-            <div class="col-md-12 mb-3">
-                <label for="floatingInput">Ingrese el valor a depositar:</label>
-                <input type="text" class="form-control" placeholder="0" id="montoTxt" name="montoTxt"
-                    [(ngModel)]="monto" #montoTxt="ngModel" [ngClass]="{ 'is-invalid': montoTxt.invalid }" required
-                    pattern="[0-9]{0,}" (keyup.enter)="onConfirmar()">
-                <div class="invalid-tooltip">
-                    Monto inválido: Debe ser un número positivo!
+<div class="card">
+    <div class="card-header ">
+        <div class="d-flex pt-3">
+            <div class="pb-3 mb-0 lh-sm w-100">
+                <div class="d-flex justify-content-between">
+                    <strong class="text-gray-dark h5 font-weight-bold">Depósito</strong>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <button class="w-100 btn btn-lg btn-primary" type="button" (click)="onConfirmar()">Depositar en mi
-                    cuenta</button>
-
+    </div>
+    <div class="card-body">
+        <form>
+            <div class="form-group">
+                <div class="col-md-12 mb-3">
+                    <label for="floatingInput">Ingrese el valor a depositar:</label>
+                    <input type="text" class="form-control" placeholder="0" id="montoTxt" name="montoTxt"
+                        [(ngModel)]="monto" #montoTxt="ngModel" [ngClass]="{ 'is-invalid': montoTxt.invalid }" required
+                        pattern="[0-9]{0,}" (keyup.enter)="onConfirmar()">
+                    <div class="invalid-tooltip">
+                        Monto inválido: Debe ser un número positivo!
+                    </div>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
+    <div class="card-footer">
+        <button class="w-100 btn btn-lg btn-primary" type="button" (click)="onConfirmar()">Depositar en
+            mi
+            cuenta</button>
+    </div>
 </div>

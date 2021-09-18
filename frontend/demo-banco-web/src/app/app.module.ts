@@ -3,7 +3,7 @@ import { LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { ListaUsuariosComponent } from './componentes/lista-usuarios/lista-usuarios.component';
 import { ListaTransaccionesComponent } from './componentes/lista-transacciones/lista-transacciones.component';
@@ -37,7 +37,8 @@ registerLocaleData(localeEs, 'es');
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    NgbModule
+    NgbModule, 
+    ReactiveFormsModule
   
   ],
   providers: [ { provide: LOCALE_ID, useValue: 'es-CL' }],
