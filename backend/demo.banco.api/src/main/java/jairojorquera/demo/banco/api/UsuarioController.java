@@ -3,6 +3,7 @@ package jairojorquera.demo.banco.api;
 import jairojorquera.demo.banco.model.Usuario;
 import jairojorquera.demo.banco.service.UsuarioService;
 import java.util.List;
+import java.util.Optional;
 import org.slf4j.Logger;
 
 import org.slf4j.LoggerFactory;
@@ -37,8 +38,9 @@ public class UsuarioController {
         logger.info("get [001] rut: {}", rut);
         try {
 
-            Usuario usuario = usuarioService.getUsuario(rut);
-            return new ResponseEntity<>(usuario, HttpStatus.OK);
+            Optional<Usuario> usuarioOpt = usuarioService.getUsuario(rut);
+
+            return new ResponseEntity<>(usuarioOpt.get(), HttpStatus.OK);
         } catch (Exception e) {
 
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

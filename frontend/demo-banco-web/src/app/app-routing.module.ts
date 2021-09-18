@@ -8,6 +8,7 @@ import { RegistrarUsuarioComponent } from './componentes/registrar-usuario/regis
 import { DepositosComponent } from './componentes/depositos/depositos.component';
 import { RetirosComponent } from './componentes/retiros/retiros.component';
 import { MisTransaccionesComponent } from './componentes/mis-transacciones/mis-transacciones.component';
+import { TransferenciaComponent } from './componentes/transferencia/transferencia.component';
 
 
 
@@ -19,7 +20,8 @@ const routes: Routes = [
     { path: 'depositos', component: DepositosComponent },
     { path: 'retiros', component: RetirosComponent },
     { path: 'misTransacciones', component: MisTransaccionesComponent },    
-    { path: 'registrarUsuario', component: RegistrarUsuarioComponent }
+    { path: 'registrarUsuario', component: RegistrarUsuarioComponent },
+    { path: 'transferencias', component: TransferenciaComponent }
 
 ];
 

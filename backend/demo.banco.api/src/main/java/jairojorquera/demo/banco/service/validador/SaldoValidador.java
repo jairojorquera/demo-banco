@@ -6,6 +6,7 @@ import jairojorquera.demo.banco.model.Usuario;
 import jairojorquera.demo.banco.service.UsuarioService;
 import jairojorquera.demo.banco.utils.Resultado;
 import jairojorquera.demo.banco.utils.Status;
+import java.util.Optional;
 
 /**
  *
@@ -23,10 +24,15 @@ public class SaldoValidador implements TransaccionValidador {
     public Resultado validar(Transaccion transaccion) {
         Resultado rtdo = new Resultado();
         if (transaccion.getTipo() == TipoTransaccion.RETIRO.getCodigo()) {
-            Usuario usuario = usuarioService.getUsuario(transaccion.getRut());
+            Optional<Usuario> usuarioOpt = usuarioService.getUsuario(transaccion.getRut());
+
+            if (!usuarioOpt.isPresent()) {
+                rtdo.addMensaje(Status.FAIL, "Usuario inválido");
+                return rtdo; 
+            }
 
             //Si el saldo del usuario es menor que el monto de la transaccion se rechaza
-            if (usuario.getSaldo().compareTo(transaccion.getMonto()) == -1) {
+            if (usuarioOpt.get().getSaldo().compareTo(transaccion.getMonto()) == -1) {
                 rtdo.addMensaje(Status.FAIL, "Saldo insuficiente para realizar la operación");
             }
         }

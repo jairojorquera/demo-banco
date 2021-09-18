@@ -4,6 +4,7 @@ import jairojorquera.demo.banco.model.Transaccion;
 import jairojorquera.demo.banco.model.repository.TransaccionRepositorio;
 import jairojorquera.demo.banco.service.validador.TransaccionValidador;
 import jairojorquera.demo.banco.utils.Resultado;
+import jairojorquera.demo.banco.utils.TipoTransaccion;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -45,6 +46,21 @@ public class TransaccionService {
 
         if (transaccion != null && transaccion.getFecha() == null) {
             transaccion.setFecha(LocalDateTime.now());
+        }
+
+        //Si es una transferencia, se crea una nueva transacción para registrar en cuenta del relacionado
+        if (TipoTransaccion.RETIRO.getCodigo() == transaccion.getTipo()
+                && transaccion.getRutRelacionado() != null) {
+            Transaccion transaccionRelacionada = new Transaccion();
+            transaccionRelacionada.setFecha(transaccion.getFecha());
+            transaccionRelacionada.setMonto(transaccion.getMonto());
+            transaccionRelacionada.setRut(transaccion.getRutRelacionado());
+            transaccionRelacionada.setRutRelacionado(transaccion.getRut());
+            transaccionRelacionada.setTipo(TipoTransaccion.DEPOSITO.getCodigo());
+            rtdo.addResultado(this.saveTransaccion(transaccionRelacionada));
+            if (!rtdo.isOK()) {
+                return rtdo;
+            }
         }
 
         return new Resultado(transaccionRepositorio.save(transaccion));

@@ -16,6 +16,7 @@ import { MisTransaccionesComponent } from './componentes/mis-transacciones/mis-t
 import localeEs from '@angular/common/locales/es';
 import  { registerLocaleData } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TransferenciaComponent } from './componentes/transferencia/transferencia.component';
 
 registerLocaleData(localeEs, 'es');
 
@@ -28,7 +29,8 @@ registerLocaleData(localeEs, 'es');
     RegistrarUsuarioComponent,
     DepositosComponent,
     RetirosComponent,
-    MisTransaccionesComponent
+    MisTransaccionesComponent,
+    TransferenciaComponent
   ],
   imports: [
     BrowserModule,     
