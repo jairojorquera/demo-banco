@@ -61,7 +61,7 @@ export class RetirosComponent implements OnInit {
       this.transaccionesService.save(transaccion).subscribe(resultado => {
         
         if (resultado.status != "SUCCESS") {
-          new Mensajes(resultado.messages).errorOperacion();
+          new Mensajes().errorOperacion(resultado.messages);
           return;
         }
 

@@ -1,7 +1,9 @@
 package jairojorquera.demo.banco.api;
 
 import jairojorquera.demo.banco.model.Usuario;
+import jairojorquera.demo.banco.model.UsuarioPublico;
 import jairojorquera.demo.banco.service.UsuarioService;
+import jairojorquera.demo.banco.utils.Resultado;
 import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -34,23 +36,16 @@ public class UsuarioController {
     }
 
     @GetMapping("/{rut}")
-    public ResponseEntity<Usuario> get(@PathVariable String rut) {
+    public Resultado<UsuarioPublico> get(@PathVariable String rut) {
         logger.info("get [001] rut: {}", rut);
-        try {
-
-            Optional<Usuario> usuarioOpt = usuarioService.getUsuario(rut);
-
-            return new ResponseEntity<>(usuarioOpt.get(), HttpStatus.OK);
-        } catch (Exception e) {
-
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        Resultado<UsuarioPublico> usuarioRtdo = usuarioService.getUsuario(rut);
+        return usuarioRtdo;
     }
 
     @PostMapping()
-    public void add(@RequestBody Usuario usuario) {
+    public Resultado<UsuarioPublico> add(@RequestBody Usuario usuario) {
         logger.info("add [001] usuario: {}", usuario);
-        usuarioService.saveUsuario(usuario);
+        return usuarioService.saveUsuario(usuario);
     }
 
     @PutMapping("/{rut}")

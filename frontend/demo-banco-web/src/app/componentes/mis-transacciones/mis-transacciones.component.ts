@@ -35,7 +35,7 @@ export class MisTransaccionesComponent implements OnInit {
         this.collectionSize = this.transacciones.length;
       },
       error => {
-        new Mensajes(["Error al intentar conectarse al servidor. Por favor intentelo más tarde."]).errorOperacion();
+        new Mensajes().errorOperacion(["Error al intentar conectarse al servidor. Por favor intentelo más tarde."]);
 
       });
   }

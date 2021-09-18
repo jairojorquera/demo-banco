@@ -25,6 +25,6 @@ export class TransaccionesService {
   }
 
   public save(transaccion: Transaccion) {
-    return this.http.post<Resultado>(this.transaccionUrl, transaccion);
+    return this.http.post<Resultado<Transaccion>>(this.transaccionUrl, transaccion);
   }
 }

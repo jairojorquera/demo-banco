@@ -1,18 +1,16 @@
-package jairojorquera.demo.banco.service.validador;
+package jairojorquera.demo.banco.service.validador.transacciones;
 
+import jairojorquera.demo.banco.service.validador.Validador;
 import jairojorquera.demo.banco.utils.TipoTransaccion;
 import jairojorquera.demo.banco.model.Transaccion;
-import jairojorquera.demo.banco.model.Usuario;
 import jairojorquera.demo.banco.service.UsuarioService;
 import jairojorquera.demo.banco.utils.Resultado;
-import jairojorquera.demo.banco.utils.Status;
-import java.util.Optional;
 
 /**
  *
  * @author jjorquerar
  */
-public class UsuarioTransferenciaValidador implements TransaccionValidador {
+public class UsuarioTransferenciaValidador implements Validador<Transaccion> {
 
     private final UsuarioService usuarioService;
 
@@ -22,14 +20,9 @@ public class UsuarioTransferenciaValidador implements TransaccionValidador {
 
     @Override
     public Resultado validar(Transaccion transaccion) {
-        Resultado rtdo = new Resultado();
+        Resultado rtdo = Resultado.of();
         if (TipoTransaccion.RETIRO.getCodigo() == transaccion.getTipo() && transaccion.getRutRelacionado() != null) {
-            Optional<Usuario> usuarioOpt = usuarioService.getUsuario(transaccion.getRutRelacionado());
-
-            //Si el saldo del usuario es menor que el monto de la transaccion se rechaza
-            if (!usuarioOpt.isPresent()) {
-                rtdo.addMensaje(Status.FAIL, "No existe el usuario al que desea transferir.");
-            }
+            rtdo.addResultado(usuarioService.getUsuario(transaccion.getRutRelacionado()));
         }
         return rtdo;
     }

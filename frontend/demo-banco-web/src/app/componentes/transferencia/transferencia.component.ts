@@ -63,7 +63,7 @@ export class TransferenciaComponent implements OnInit {
       this.transaccionesService.save(transaccion).subscribe(resultado => {
 
         if (resultado.status != "SUCCESS") {
-          new Mensajes(resultado.messages).errorOperacion();
+          new Mensajes().errorOperacion(resultado.messages);
           return;
         }
 
@@ -94,7 +94,7 @@ export class TransferenciaComponent implements OnInit {
 
       },
       error => {
-        new Mensajes(["Error al intentar conectarse al servidor. Por favor intentelo más tarde."]).errorOperacion();
+        new Mensajes().errorOperacion(["Error al intentar conectarse al servidor. Por favor intentelo más tarde."]);
 
       });
 

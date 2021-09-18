@@ -1,7 +1,7 @@
 import { Transaccion } from "./transaccion";
 
-export class Resultado{
+export class Resultado<T>{
     status!: string;
-    data!: Transaccion;
+    data!: T;
     messages!: string[];    
 }

@@ -1,24 +1,33 @@
 import Swal from "sweetalert2";
 
 export class Mensajes {
-    mensajes: string[];
 
-    constructor(mensajes: string[]) {
-        this.mensajes = mensajes;
+    constructor() {
 
     };
 
-    public errorOperacion() {
+    public validacionesPendientes() {
+
+        Swal.fire({
+            title: 'Datos inválidos',
+            icon: 'warning',
+            timer: 10000,
+            confirmButtonText: 'Cerrar',
+            text: "Por favor corrija los valores indicados en el formulario"
+        })
+
+    }
+
+    public errorOperacion(mensajes: string[]) {
         let htmlMensaje = "Lamentamos informar que la operación no pudo ser realizada";
-        if(this.mensajes.length === 1){
-            htmlMensaje+= ": " + this.mensajes;
-        }else if(this.mensajes.length > 1){            
-            htmlMensaje+= ": " + this.mensajes.map(function(mensaje) {
-                return  mensaje + "<br/>";
-            }) ;
+        if (mensajes.length === 1) {
+            htmlMensaje += ": " + mensajes;
+        } else if (mensajes.length > 1) {
+            htmlMensaje += ": " + mensajes.map(function (mensaje) {
+                return mensaje + "<br/>";
+            });
 
         }
-
 
         Swal.fire({
             title: 'Ha ocurrido un problema',

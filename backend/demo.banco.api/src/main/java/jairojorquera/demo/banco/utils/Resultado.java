@@ -2,6 +2,7 @@ package jairojorquera.demo.banco.utils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -14,21 +15,26 @@ public class Resultado<T> {
     T data;
     List<String> messages;
 
-    public Resultado() {
-        this.status = Status.SUCCESS;
-        messages = new ArrayList<>();
-    }
-
-    public Resultado(T data) {
-        this.status = Status.SUCCESS;
-        this.data = data;
-        messages = new ArrayList<>();
-    }
-
-    public Resultado(Status status, T data, List<String> messages) {
+    protected Resultado(Status status, T data, List<String> messages) {
         this.status = status;
         this.data = data;
         this.messages = messages;
+    }
+
+    public static Resultado error(String... mensajes) {
+        return new Resultado(Status.ERROR, null, Arrays.asList(mensajes));
+    }
+
+    public static Resultado fail(String... mensajes) {
+        return new Resultado(Status.FAIL, null, Arrays.asList(mensajes));
+    }
+
+    public static Resultado of(Object data) {
+        return new Resultado(Status.SUCCESS, data, new ArrayList<>());
+    }
+
+    public static Resultado of() {
+        return new Resultado(Status.SUCCESS, null, new ArrayList<>());
     }
 
     public Status getStatus() {

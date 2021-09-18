@@ -2,7 +2,6 @@ package jairojorquera.demo.banco.service;
 
 import jairojorquera.demo.banco.model.Transaccion;
 import jairojorquera.demo.banco.model.repository.TransaccionRepositorio;
-import jairojorquera.demo.banco.service.validador.TransaccionValidador;
 import jairojorquera.demo.banco.utils.Resultado;
 import jairojorquera.demo.banco.utils.TipoTransaccion;
 import java.math.BigDecimal;
@@ -11,6 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import jairojorquera.demo.banco.service.validador.Validador;
 
 /**
  *
@@ -23,9 +23,9 @@ public class TransaccionService {
     @Autowired
     private TransaccionRepositorio transaccionRepositorio;
 
-    private final TransaccionValidador validadorTransaccion;
+    private final Validador validadorTransaccion;
 
-    public TransaccionService(TransaccionValidador validator) {
+    public TransaccionService(Validador<Transaccion> validator) {
         this.validadorTransaccion = validator;
     }
 
@@ -63,7 +63,7 @@ public class TransaccionService {
             }
         }
 
-        return new Resultado(transaccionRepositorio.save(transaccion));
+        return Resultado.of(transaccionRepositorio.save(transaccion));
     }
 
     public Transaccion getTransaccion(BigDecimal id) {

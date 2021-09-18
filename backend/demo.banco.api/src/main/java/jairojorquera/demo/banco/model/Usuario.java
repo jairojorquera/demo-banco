@@ -13,15 +13,13 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "usuarios")
-public class Usuario implements Serializable {
+public class Usuario implements Serializable, UsuarioPublico {
 
     @Id
     private String rut;
     private String nombre;
     private String email;
     private BigDecimal saldo;
-    
-    @JsonIgnore
     private String password;
 
     public Usuario() {

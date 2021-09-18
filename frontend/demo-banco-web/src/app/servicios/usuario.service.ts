@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Usuario } from '../modelo/usuario';
 import { Observable } from 'rxjs';
+import { Resultado } from '../modelo/resultado';
 
 
 @Injectable({ providedIn: 'root' })
@@ -18,8 +19,8 @@ export class UsuarioService {
     return this.http.get<Usuario[]>(this.usuarioUrl);
   }
 
-  public save(user: Usuario) {
-    return this.http.post<Usuario>(this.usuarioUrl, user);
+  public save(user: Usuario): Observable<Resultado<Usuario>> {
+    return this.http.post<Resultado<Usuario>>(this.usuarioUrl, user);
   }
 
   public login(usuario: string): Observable<Usuario> {
