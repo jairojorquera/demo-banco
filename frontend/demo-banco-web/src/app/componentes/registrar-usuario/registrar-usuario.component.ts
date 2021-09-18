@@ -55,7 +55,7 @@ export class RegistrarUsuarioComponent implements OnInit {
           title: 'Registro exitoso',
           icon: 'success',
           timer: 20000,
-          showDenyButton: true,
+          
           confirmButtonText: 'Ir a iniciar sesión',
           text: 'Cuenta creada'
         }).then((result) => {

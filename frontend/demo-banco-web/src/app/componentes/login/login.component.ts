@@ -7,6 +7,7 @@ import { UsuarioService } from '../../servicios/usuario.service';
 import { StorageService } from '../../servicios/storage.service';
 
 import Swal from 'sweetalert2';
+import { Mensajes } from 'src/app/utils/mensajes.utils';
 
 @Component({
   selector: 'app-login',
@@ -28,25 +29,35 @@ export class LoginComponent implements OnInit {
 
   onLogin(event?: MouseEvent) {
 
-
+    //TODO: generar token o recibir de api de sesion
     this.userService.login(this.usuario)
-      //TODO: generar token o recibir de api de sesion
-      .subscribe(data => {
+      .subscribe(resultado => {
+
+        if (resultado.status != "SUCCESS") {
+          new Mensajes().errorOperacion(resultado.messages);
+          return;
+        }
+
+        let data = resultado.data;
+
         this.sesion = {
-          token: "123", usuario: data
+          token: "123", usuario: resultado.data, activa: true
         };
 
         this.storageService.setSesion(this.sesion);
-
+        console.log(JSON.stringify(data));
         Swal.fire({
-          title: 'Bienvenido',
-          text: 'Bienvenido ' + data.nombre,
+          title: 'Bienvenido/a',
+          text: 'Bienvenido/a ' + data.nombre,
           icon: 'info',
           timer: 2000
 
+        }).then((result) => {
+          window.location.replace("/misTransacciones");
         })
 
-        this.router.navigate(['/', 'misTransacciones']);
+      
+
 
       }, (error: HttpErrorResponse) => {
         if (error.status == 404) {

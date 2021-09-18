@@ -22,6 +22,7 @@ export class StorageService {
 
   borrarSesion(): void {
     localStorage.removeItem('currentUser');
+    window.location.replace("/misTransacciones");
   }
 
   getSesion(): Sesion {   
