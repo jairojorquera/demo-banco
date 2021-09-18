@@ -13,7 +13,7 @@ export class RegistrarUsuarioComponent implements OnInit {
   userForm!: FormGroup;
 
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder) { }
 
 
 
@@ -28,7 +28,6 @@ export class RegistrarUsuarioComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
     if (this.userForm.invalid == true) {
       return;
     }
@@ -36,6 +35,7 @@ export class RegistrarUsuarioComponent implements OnInit {
       this.registered = true;
     }
   }
+
   isInvalidNombre() {
     return (this.submitted && this.userForm.controls.nombre.errors != null);
   }

@@ -2,38 +2,45 @@
     <h3>Registre sus datos</h3>
     <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
 
-        <div class="form-group" [ngClass]="{ 'has-error': isInvalidNombre() }">
+        <div class="form-group">
             <!-- Nombre -->
             <label for="nombre" class="control-label">Nombre</label>
             <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese su nombre"
-                formControlName="nombre">
-            <p *ngIf="isInvalidNombre()" id="nombre_error" class="help-block">Debe ingresar un nombre</p>
+                formControlName="nombre" [ngClass]="{ 'is-invalid': isInvalidNombre() }">
+            <div class="invalid-feedback">
+                Debe ingresar un nombre
+            </div>
         </div>
 
-        <div class="form-group" [ngClass]="{ 'has-error': isInvalidRut() }">
+        <div class="form-group">
             <!-- R.U.T. -->
             <label for="rut" class="control-label">R.U.T.</label>
             <input type="text" class="form-control" id="rut" name="rut" placeholder="Ingrese su R.U.T."
-                formControlName="rut">
-            <p *ngIf="isInvalidRut()" id="rut_error" class="help-block">R.U.T. inválido</p>
+                formControlName="rut" [ngClass]="{ 'is-invalid': isInvalidRut() }">            
+            <div class="invalid-feedback">
+                R.U.T. inválido
+            </div>
         </div>
 
-        <div class="form-group" [ngClass]="{ 'has-error': isInvalidEmail() }">
+        <div class="form-group">
             <!-- Email -->
             <label for="email" class="control-label">Email</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="su correo"
-                formControlName="email">
-            <p *ngIf="isInvalidEmail()" id="email_error" class="help-block">Email inválido</p>
+                formControlName="email"  [ngClass]="{ 'is-invalid': isInvalidEmail() }">        
+            <div class="invalid-feedback">
+                Email inválido
+            </div>
         </div>
 
 
-        <div class="form-group" [ngClass]="{ 'has-error': isInvalidPassword() }">
+        <div class="form-group">
             <!-- Password -->
             <label for="password" class="control-label">Password</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="*****"
-                formControlName="password">
-            <p *ngIf="isInvalidPassword()" id="password_error" class="help-block">Password inválido (Debe incluir may,
-                min y nro, mínimo 5 caracteres)</p>
+                formControlName="password"  [ngClass]="{ 'is-invalid': isInvalidPassword() }" >
+                <div class="invalid-feedback">
+                    Password inválido (Debe incluir may, min y nro, mínimo 5 caracteres)
+                </div>
         </div>
 
         <div class="form-group">
