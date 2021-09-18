@@ -4,6 +4,7 @@ import { StorageService } from '../../servicios/storage.service';
 import { TransaccionesService } from '../../servicios/transacciones.service';
 
 import Swal from 'sweetalert2';
+import { Mensajes } from 'src/app/utils/mensajes.utils';
 
 @Component({
   selector: 'app-depositos',
@@ -56,7 +57,17 @@ export class DepositosComponent implements OnInit {
       });
 
 
-      this.transaccionesService.save(transaccion).subscribe(data => {
+
+
+      this.transaccionesService.save(transaccion).subscribe(resultado => {
+
+        if (resultado.status != "SUCCESS") {
+          new Mensajes(resultado.messages).errorOperacion();
+          return;
+        }
+
+        let data: Transaccion = resultado.data;
+
         Swal.fire({
           title: 'Depósito exitoso',
           icon: 'success',

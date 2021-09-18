@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Transaccion } from '../modelo/transaccion';
+import { Resultado } from '../modelo/resultado';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -24,6 +25,6 @@ export class TransaccionesService {
   }
 
   public save(transaccion: Transaccion) {
-    return this.http.post<Transaccion>(this.transaccionUrl, transaccion);
+    return this.http.post<Resultado>(this.transaccionUrl, transaccion);
   }
 }

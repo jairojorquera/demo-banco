@@ -13,7 +13,7 @@
     </div>
     <div class="card-body">
 
-        <div  *ngIf="transacciones.length>9" class="d-flex justify-content-between p-2">
+        <div  *ngIf="collectionSize > 9" class="d-flex justify-content-between p-2">
             <ngb-pagination [collectionSize]="transacciones.length" [(page)]="page" [pageSize]="pageSize"
                 [boundaryLinks]="true">
                 <ng-template ngbPaginationPages let-page let-pages="pages">

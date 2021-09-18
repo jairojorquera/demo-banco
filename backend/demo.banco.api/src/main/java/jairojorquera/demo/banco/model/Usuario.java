@@ -2,6 +2,7 @@ package jairojorquera.demo.banco.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -18,6 +19,7 @@ public class Usuario implements Serializable {
     private String rut;
     private String nombre;
     private String email;
+    private BigDecimal saldo;
     
     @JsonIgnore
     private String password;
@@ -64,9 +66,18 @@ public class Usuario implements Serializable {
         this.password = password;
     }
 
+    public BigDecimal getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(BigDecimal saldo) {
+        this.saldo = saldo;
+    }
+
     @Override
     public String toString() {
-        return "Usuario{" + "rut=" + rut + ", nombre=" + nombre + ", email=" + email + '}';
+        return "Usuario{" + "rut=" + rut + ", nombre=" + nombre + ", email=" + email + ", saldo=" + saldo + ", password=" + password + '}';
     }
+
 
 }

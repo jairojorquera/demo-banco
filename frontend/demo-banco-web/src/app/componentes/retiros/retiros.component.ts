@@ -3,6 +3,7 @@ import { Transaccion } from '../../modelo/transaccion';
 import { StorageService } from '../../servicios/storage.service';
 import { TransaccionesService } from '../../servicios/transacciones.service';
 import Swal from 'sweetalert2';
+import { Mensajes } from 'src/app/utils/mensajes.utils';
 
 @Component({
   selector: 'app-retiros',
@@ -11,6 +12,7 @@ import Swal from 'sweetalert2';
 })
 export class RetirosComponent implements OnInit {
   monto: number = 0;
+  
 
   constructor(private storageService: StorageService, private transaccionesService: TransaccionesService) { }
 
@@ -56,7 +58,15 @@ export class RetirosComponent implements OnInit {
       });
 
 
-      this.transaccionesService.save(transaccion).subscribe(data => {
+      this.transaccionesService.save(transaccion).subscribe(resultado => {
+        
+        if (resultado.status != "SUCCESS") {
+          new Mensajes(resultado.messages).errorOperacion();
+          return;
+        }
+
+        let data: Transaccion = resultado.data;
+
         Swal.fire({
           title: 'Retiro exitoso',
           icon: 'success',

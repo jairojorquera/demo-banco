@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Transaccion } from '../../modelo/transaccion';
 import { TransaccionesService } from '../../servicios/transacciones.service';
 import { StorageService } from '../../servicios/storage.service';
+import { Mensajes } from 'src/app/utils/mensajes.utils';
 
 const FILTER_PAG_REGEX = /[^0-9]/g;
 
@@ -16,8 +17,8 @@ export class MisTransaccionesComponent implements OnInit {
   ingresos: number = 0;
   egresos: number = 0;
   total: number = 0;
-  page:number = 1;
-  pageSize:number = 10;
+  page: number = 1;
+  pageSize: number = 10;
   collectionSize = 0;
 
   constructor(private transaccionesService: TransaccionesService, private storageService: StorageService) { }
@@ -25,15 +26,18 @@ export class MisTransaccionesComponent implements OnInit {
   ngOnInit(): void {
 
     let sesion = this.storageService.getSesion();
-    this.transaccionesService.find(sesion.usuario.rut).subscribe(data => {
+    this.transaccionesService.find(sesion.usuario.rut).subscribe(
+      data => {
+        this.transacciones = data.map(x => Object.assign(new Transaccion(), x));
+        this.ingresos = this.calcularTotalIngresos();
+        this.egresos = this.calcularTotalEgresos();
+        this.total = this.ingresos - this.egresos;
+        this.collectionSize = this.transacciones.length;
+      },
+      error => {
+        new Mensajes(["Error al intentar conectarse al servidor. Por favor intentelo más tarde."]).errorOperacion();
 
-      this.transacciones = data.map(x => Object.assign(new Transaccion(), x));
-
-      this.ingresos = this.calcularTotalIngresos();
-      this.egresos = this.calcularTotalEgresos();
-      this.total = this.ingresos - this.egresos;
-      this.collectionSize = this.transacciones.length;
-    });
+      });
   }
 
   selectPage(page: string) {

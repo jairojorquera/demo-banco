@@ -2,6 +2,7 @@ package jairojorquera.demo.banco.api;
 
 import jairojorquera.demo.banco.model.Transaccion;
 import jairojorquera.demo.banco.service.TransaccionService;
+import jairojorquera.demo.banco.utils.Resultado;
 import java.util.List;
 import org.slf4j.Logger;
 
@@ -37,7 +38,7 @@ public class TransaccionController {
     }
 
     @PostMapping()
-    public Transaccion add(@RequestBody Transaccion transaccion) {
+    public Resultado<Transaccion> add(@RequestBody Transaccion transaccion) {
         logger.info("add [INI] transaccion: {}", transaccion);
         return transaccionService.saveTransaccion(transaccion);
     }
