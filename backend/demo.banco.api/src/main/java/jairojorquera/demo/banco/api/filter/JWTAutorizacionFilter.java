@@ -47,7 +47,6 @@ public class JWTAutorizacionFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         try {
 
-            System.out.println(request.getMethod());
             if (request.getMethod().equals("OPTIONS")) {
                 chain.doFilter(request, response);
                 return;
@@ -58,7 +57,6 @@ public class JWTAutorizacionFilter extends OncePerRequestFilter {
                 return;
             }
             String token = request.getHeader(HEADER).replace(PREFIX, "");
-
             Resultado<DecodedJWT> claimsRtdo = validarToken(token);
 
             if (!claimsRtdo.isOK()) {
@@ -99,8 +97,7 @@ public class JWTAutorizacionFilter extends OncePerRequestFilter {
     }
 
     private boolean checkJWTToken(HttpServletRequest request) {
-        String authenticationHeader = request.getHeader(HEADER);
-        System.out.println("authenticationHeader: " + authenticationHeader);
+        String authenticationHeader = request.getHeader(HEADER);        
         return !(authenticationHeader == null || !authenticationHeader.startsWith(PREFIX));
     }
 

@@ -5,7 +5,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
-import { ListaUsuariosComponent } from './componentes/lista-usuarios/lista-usuarios.component';
 import { ListaTransaccionesComponent } from './componentes/lista-transacciones/lista-transacciones.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { RegistrarUsuarioComponent } from './componentes/registrar-usuario/registrar-usuario.component';
@@ -17,14 +16,14 @@ import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TransferenciaComponent } from './componentes/transferencia/transferencia.component';
-import { AuthInterceptor } from './servicios/auth-interceptor';
+import { AuthInterceptor } from './interceptores/auth-interceptor';
 
 registerLocaleData(localeEs, 'es');
 
 @NgModule({
   declarations: [
     AppComponent,
-    ListaUsuariosComponent,
+    
     ListaTransaccionesComponent,
     LoginComponent,
     RegistrarUsuarioComponent,

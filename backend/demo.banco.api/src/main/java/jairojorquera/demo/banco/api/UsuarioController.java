@@ -1,4 +1,4 @@
-   package jairojorquera.demo.banco.api;
+package jairojorquera.demo.banco.api;
 
 import jairojorquera.demo.banco.model.Usuario;
 import jairojorquera.demo.banco.service.UsuarioService;
@@ -28,34 +28,10 @@ public class UsuarioController {
     @Autowired
     UsuarioService usuarioService;
 
-    @GetMapping()
-    public List<Usuario> list() {
-        return usuarioService.getUsuarios();
-    }
-
-    @GetMapping("/{rut}")
-    public Resultado<Usuario> get(@PathVariable String rut) {
-        logger.info("get [001] rut: {}", rut);
-        Resultado<Usuario> usuarioRtdo = usuarioService.getUsuario(rut);
-        return usuarioRtdo;
-    }
-
     @PostMapping()
     public Resultado<Usuario> add(@RequestBody Usuario usuario) {
         logger.info("add [001] usuario: {}", usuario);
         return usuarioService.saveUsuario(usuario);
     }
 
-    @PutMapping("/{rut}")
-    public ResponseEntity<?> update(@RequestBody Usuario usuario, @PathVariable String rut) {
-        logger.info("update [001] rut: {}", rut);
-        try {
-            usuarioService.getUsuario(rut);
-            usuario.setRut(rut);
-            usuarioService.saveUsuario(usuario);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
 }

@@ -29,10 +29,6 @@ public class UsuarioService {
         this.validadorUsuario = validator;
     }
 
-    public List<Usuario> getUsuarios() {
-        return usuarioRepositorio.findAll();
-    }
-
     public Resultado<Usuario> saveUsuario(Usuario usuario) {
         Resultado rtdo = validadorUsuario.validar(usuario);
         if (!rtdo.isOK()) {

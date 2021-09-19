@@ -21,8 +21,7 @@ public class ConfiguracionFiltros {
         FilterRegistrationBean<JWTAutorizacionFilter> registrationBean
                 = new FilterRegistrationBean<>();
 
-        registrationBean.setFilter(filtro);
-        registrationBean.addUrlPatterns("/usuarios/*");
+        registrationBean.setFilter(filtro);        
         registrationBean.addUrlPatterns("/transacciones/*");        
         return registrationBean;
     }
