@@ -3,6 +3,7 @@ package jairojorquera.demo.banco.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +20,9 @@ public class Transaccion implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private BigDecimal id;
+    private Integer id;
+    
+    @Column(insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime fecha;
     private BigDecimal monto;
     private int tipo;
@@ -28,8 +31,8 @@ public class Transaccion implements Serializable {
 
     public Transaccion() {
     }
-    
-    public Transaccion(BigDecimal id, LocalDateTime fecha, BigDecimal monto, int tipo, String rut, String rutRelacionado) {
+
+    public Transaccion(Integer id, LocalDateTime fecha, BigDecimal monto, int tipo, String rut, String rutRelacionado) {
         this.id = id;
         this.fecha = fecha;
         this.monto = monto;
@@ -38,11 +41,11 @@ public class Transaccion implements Serializable {
         this.rutRelacionado = rutRelacionado;
     }
 
-    public BigDecimal getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(BigDecimal id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

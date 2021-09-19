@@ -20,14 +20,14 @@ public class Accion implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private BigDecimal id;
+    private Integer id;
     
-    @Column(insertable = false)
+    @Column(insertable = false, columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime fecha;
     
     private String rutUsuario;
 
-    @Column(insertable = false)
+    @Column(insertable = false, columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime accionFecha;
 
     private String token;
@@ -36,11 +36,11 @@ public class Accion implements Serializable {
     public Accion() {
     }
 
-    public BigDecimal getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(BigDecimal id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

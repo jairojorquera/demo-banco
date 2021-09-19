@@ -16,10 +16,9 @@ public interface AccionRepositorio extends JpaRepository<Accion, BigDecimal> {
     @Query(
             value = "select * from sesiones "
             + "where token = :token and rut_usuario=:rut "
-            + "and accion_fecha + :max > now() and activa = 1 ",
+            + "and activa = 1 ",
             nativeQuery = true)
     List<Accion> findSesionActiva(
             @Param("token") String token,
-            @Param("rut") String rut,
-            @Param("max") Integer max);
+            @Param("rut") String rut);
 }

@@ -19,14 +19,12 @@ public class AccionService {
     
     @Autowired
     private AccionRepositorio accionRepositorio;
-    @Value("${session.max.tiempo.sin.uso}")
-    private String tiempoMaximo;
     
     public AccionService() {;
     }
     
     public List<Accion> getSesionActiva(String token, String rut) {
-        return accionRepositorio.findSesionActiva(token, rut, Integer.parseInt(tiempoMaximo));
+        return accionRepositorio.findSesionActiva(token, rut);
     }
     
     public Resultado<Accion> saveAccion(Accion accion) {

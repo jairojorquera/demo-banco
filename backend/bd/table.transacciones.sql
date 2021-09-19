@@ -9,4 +9,4 @@ CREATE TABLE `transacciones` (
   UNIQUE KEY `idtransaccion_UNIQUE` (`id`),
   KEY `rut_idx` (`rut`),
   CONSTRAINT `rut` FOREIGN KEY (`rut`) REFERENCES `usuarios` (`rut`)
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+) 

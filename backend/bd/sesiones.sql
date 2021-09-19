@@ -1,14 +1,12 @@
-CREATE TABLE `banco`.`sesiones` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `token` VARCHAR(500) NOT NULL,
-  `fecha` DATETIME NOT NULL DEFAULT  NOW(),
-  `rut_usuario` VARCHAR(10) NOT NULL,
-  `accion` VARCHAR(100) NOT NULL,
+CREATE TABLE `sesiones` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `token` varchar(500) NOT NULL,
+  `fecha` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `rut_usuario` varchar(10) NOT NULL,
+  `accion_fecha` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `activa` tinyint NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-  INDEX `usuario_sesion_idx` (`rut_usuario` ASC) VISIBLE,
-  CONSTRAINT `usuario_sesion`
-    FOREIGN KEY (`rut_usuario`)
-    REFERENCES `banco`.`usuarios` (`rut`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `usuario_sesion_idx` (`rut_usuario`),
+  CONSTRAINT `usuario_sesion` FOREIGN KEY (`rut_usuario`) REFERENCES `usuarios` (`rut`)
+) 
