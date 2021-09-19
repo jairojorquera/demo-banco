@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
@@ -14,9 +14,10 @@ import { RetirosComponent } from './componentes/retiros/retiros.component';
 import { MisTransaccionesComponent } from './componentes/mis-transacciones/mis-transacciones.component';
 
 import localeEs from '@angular/common/locales/es';
-import  { registerLocaleData } from '@angular/common';
+import { registerLocaleData } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TransferenciaComponent } from './componentes/transferencia/transferencia.component';
+import { AuthInterceptor } from './servicios/auth-interceptor';
 
 registerLocaleData(localeEs, 'es');
 
@@ -33,15 +34,17 @@ registerLocaleData(localeEs, 'es');
     TransferenciaComponent
   ],
   imports: [
-    BrowserModule,     
+    BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    NgbModule, 
+    NgbModule,
     ReactiveFormsModule
-  
+
   ],
-  providers: [ { provide: LOCALE_ID, useValue: 'es-CL' }],
+  providers: [{ provide: LOCALE_ID, useValue: 'es-CL' }
+    , { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,4 @@
-package jairojorquera.demo.banco.utils;
+package jairojorquera.demo.banco.api;
 
 import jairojorquera.demo.banco.api.filter.JWTAutorizacionFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class ConfiguracionFiltros {
 
         registrationBean.setFilter(filtro);
         registrationBean.addUrlPatterns("/usuarios/*");
-        registrationBean.addUrlPatterns("/transacciones/*");
+        registrationBean.addUrlPatterns("/transacciones/*");        
         return registrationBean;
     }
 }

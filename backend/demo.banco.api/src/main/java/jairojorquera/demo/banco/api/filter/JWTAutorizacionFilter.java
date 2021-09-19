@@ -10,8 +10,8 @@ import jairojorquera.demo.banco.service.AccionService;
 import jairojorquera.demo.banco.utils.Resultado;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Enumeration;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -29,35 +28,42 @@ import org.springframework.web.filter.OncePerRequestFilter;
  */
 @Component
 public class JWTAutorizacionFilter extends OncePerRequestFilter {
-    
+
     private final String HEADER = "Authorization";
     private final String PREFIX = "Bearer ";
-    
+
     @Value("${jwt.secret}")
     private String SECRETO;
-    
+
     @Autowired
     private AccionService accionService;
-    
+
     private void sendError(HttpServletResponse response, String error) throws IOException {
-        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         response.setHeader("detalle", error);
-        ((HttpServletResponse) response).sendError(HttpServletResponse.SC_FORBIDDEN, "Sesión Inválida");
+        response.sendError(HttpServletResponse.SC_FORBIDDEN, "Sesión Inválida");
     }
-    
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         try {
-            
-            if (!checkJWTToken(request, response)) {
+
+            System.out.println(request.getMethod());
+            if (request.getMethod().equals("OPTIONS")) {
+                chain.doFilter(request, response);
+                return;
+            }
+
+            if (!checkJWTToken(request)) {
                 sendError(response, "Solicitud inválida");
+                return;
             }
             String token = request.getHeader(HEADER).replace(PREFIX, "");
-            
+
             Resultado<DecodedJWT> claimsRtdo = validarToken(token);
-            
+
             if (!claimsRtdo.isOK()) {
                 sendError(response, "JWT inválido");
+                return;
             }
 
             //falta validar que el token esta en la BD
@@ -66,21 +72,19 @@ public class JWTAutorizacionFilter extends OncePerRequestFilter {
                 Accion accion = acciones.get(0);
                 accion.setAccionFecha(LocalDateTime.now());
                 accionService.saveAccion(accion);
-                
+
                 chain.doFilter(request, response);
             } else {
                 sendError(response, "Token inválido");
             }
         } catch (Exception e) {
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            response.setHeader("detalle", e.getMessage());
-            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_FORBIDDEN, "Sesión Inválida");
-            
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Sesión Inválida");
+
         }
     }
-    
+
     private Resultado<DecodedJWT> validarToken(String token) {
-        
+
         try {
             Algorithm algorithm = Algorithm.HMAC256(SECRETO);
             JWTVerifier verifier = JWT.require(algorithm)
@@ -91,15 +95,13 @@ public class JWTAutorizacionFilter extends OncePerRequestFilter {
         } catch (JWTVerificationException exception) {
             return Resultado.error("Sesión inválida");
         }
-        
+
     }
-    
-    private boolean checkJWTToken(HttpServletRequest request, HttpServletResponse res) {
+
+    private boolean checkJWTToken(HttpServletRequest request) {
         String authenticationHeader = request.getHeader(HEADER);
-        if (authenticationHeader == null || !authenticationHeader.startsWith(PREFIX)) {
-            return false;
-        }
-        return true;
+        System.out.println("authenticationHeader: " + authenticationHeader);
+        return !(authenticationHeader == null || !authenticationHeader.startsWith(PREFIX));
     }
-    
+
 }
