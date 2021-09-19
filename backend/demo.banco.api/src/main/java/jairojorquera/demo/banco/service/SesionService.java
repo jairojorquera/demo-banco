@@ -8,6 +8,8 @@ import jairojorquera.demo.banco.model.Credenciales;
 import jairojorquera.demo.banco.model.Sesion;
 import jairojorquera.demo.banco.model.Usuario;
 import jairojorquera.demo.banco.utils.Resultado;
+import java.util.Date;
+import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -59,12 +61,15 @@ public class SesionService {
     }
 
     private Resultado<String> generarToken(String usuario) {
-        try {
-            System.out.println(secreto);
+        try {            
             Algorithm algorithm = Algorithm.HMAC256(secreto);
+            UUID uuid = UUID.randomUUID();
+            
             return Resultado.of(JWT.create()
                     .withIssuer("demo.banco")
                     .withSubject(usuario)
+                    .withIssuedAt(new Date())
+                    .withJWTId(uuid.toString())
                     .sign(algorithm));
         } catch (JWTCreationException exception) {
             return Resultado.error("Error al generar el token");
