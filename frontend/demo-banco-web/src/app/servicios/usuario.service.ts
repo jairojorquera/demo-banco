@@ -23,11 +23,6 @@ export class UsuarioService {
     return this.http.post<Resultado<Usuario>>(this.usuarioUrl, user);
   }
 
-  public login(usuario: string): Observable<Resultado<Usuario>> {
-    // TODO: enviar usuario firmado JWT
-    let url = this.usuarioUrl + "/" + usuario;
-    return this.http.get<Resultado<Usuario>>(url);
-  }
-
+ 
 
 }

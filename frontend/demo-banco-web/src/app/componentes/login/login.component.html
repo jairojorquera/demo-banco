@@ -3,22 +3,23 @@
     <div class="form-group">
         <div class="col-md-12">
             <label for="floatingInput">R.U.T.</label>
-            <input type="text" [(ngModel)]="usuario" class="form-control" id="floatingInput" placeholder="12345678-9">
+            <input type="text" [(ngModel)]="usuario" class="form-control" id="floatingInput" placeholder="xxxxxxxx-x">
             <small id="rutHelp" class="form-text text-muted">Ingrese su R.U.T. sin puntos y con guión</small>
         </div>
     </div>
     <div class="form-group">
         <div class="col-md-12">
             <label for="floatingPassword">Password</label>
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <input type="password" [(ngModel)]="password" class="form-control" id="floatingPassword"
+                placeholder="Password">
 
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
             <button class="w-100 btn btn-lg btn-primary" type="button" (click)="onLogin()">Iniciar sesión</button>
-            
+
         </div>
-     
+
     </div>
 </div>

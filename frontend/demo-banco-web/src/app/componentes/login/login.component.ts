@@ -5,9 +5,11 @@ import { Router, NavigationStart } from '@angular/router';
 import { Sesion } from '../../modelo/sesion';
 import { UsuarioService } from '../../servicios/usuario.service';
 import { StorageService } from '../../servicios/storage.service';
+import { SesionService } from '../../servicios/sesion.service';
+import { Mensajes } from '../../utils/mensajes.utils';
 
 import Swal from 'sweetalert2';
-import { Mensajes } from 'src/app/utils/mensajes.utils';
+
 
 @Component({
   selector: 'app-login',
@@ -21,7 +23,8 @@ export class LoginComponent implements OnInit {
   sesion!: Sesion;
 
 
-  constructor(private userService: UsuarioService, private storageService: StorageService, private router: Router) { }
+  constructor(private userService: UsuarioService, private storageService: StorageService, private sesionService: SesionService,
+    private router: Router) { }
 
   ngOnInit(): void {
 
@@ -29,8 +32,8 @@ export class LoginComponent implements OnInit {
 
   onLogin(event?: MouseEvent) {
 
-    //TODO: generar token o recibir de api de sesion
-    this.userService.login(this.usuario)
+
+    this.sesionService.login(this.usuario, this.password)
       .subscribe(resultado => {
 
         if (resultado.status != "SUCCESS") {
@@ -40,15 +43,13 @@ export class LoginComponent implements OnInit {
 
         let data = resultado.data;
 
-        this.sesion = {
-          token: "123", usuario: resultado.data, activa: true
-        };
+        this.sesion = data;        
 
         this.storageService.setSesion(this.sesion);
         console.log(JSON.stringify(data));
         Swal.fire({
           title: 'Bienvenido/a',
-          text: 'Bienvenido/a ' + data.nombre,
+          text: 'Bienvenido/a ' + data.usuario.nombre,
           icon: 'info',
           timer: 2000
 
