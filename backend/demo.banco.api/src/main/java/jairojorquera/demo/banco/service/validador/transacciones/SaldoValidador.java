@@ -4,7 +4,7 @@ import jairojorquera.demo.banco.service.validador.Validador;
 import jairojorquera.demo.banco.utils.TipoTransaccion;
 import jairojorquera.demo.banco.model.Transaccion;
 import jairojorquera.demo.banco.model.Usuario;
-import jairojorquera.demo.banco.model.UsuarioPublico;
+import jairojorquera.demo.banco.model.Usuario;
 import jairojorquera.demo.banco.service.UsuarioService;
 import jairojorquera.demo.banco.utils.Resultado;
 import jairojorquera.demo.banco.utils.Status;
@@ -27,7 +27,7 @@ public class SaldoValidador implements Validador<Transaccion> {
     public Resultado validar(Transaccion transaccion) {
         Resultado rtdo = Resultado.of();
         if (transaccion.getTipo() == TipoTransaccion.RETIRO.getCodigo()) {
-            Resultado<UsuarioPublico> usuarioRtdo = usuarioService.getUsuario(transaccion.getRut());
+            Resultado<Usuario> usuarioRtdo = usuarioService.getUsuario(transaccion.getRut());
 
             if (!usuarioRtdo.isOK()) {
                 rtdo.addMensaje(Status.FAIL, "Usuario inválido");

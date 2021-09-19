@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
           window.location.replace("/misTransacciones");
         })
 
-      
+
 
 
       }, (error: HttpErrorResponse) => {

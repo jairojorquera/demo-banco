@@ -1,11 +1,9 @@
-package jairojorquera.demo.banco.api;
+   package jairojorquera.demo.banco.api;
 
 import jairojorquera.demo.banco.model.Usuario;
-import jairojorquera.demo.banco.model.UsuarioPublico;
 import jairojorquera.demo.banco.service.UsuarioService;
 import jairojorquera.demo.banco.utils.Resultado;
 import java.util.List;
-import java.util.Optional;
 import org.slf4j.Logger;
 
 import org.slf4j.LoggerFactory;
@@ -36,14 +34,14 @@ public class UsuarioController {
     }
 
     @GetMapping("/{rut}")
-    public Resultado<UsuarioPublico> get(@PathVariable String rut) {
+    public Resultado<Usuario> get(@PathVariable String rut) {
         logger.info("get [001] rut: {}", rut);
-        Resultado<UsuarioPublico> usuarioRtdo = usuarioService.getUsuario(rut);
+        Resultado<Usuario> usuarioRtdo = usuarioService.getUsuario(rut);
         return usuarioRtdo;
     }
 
     @PostMapping()
-    public Resultado<UsuarioPublico> add(@RequestBody Usuario usuario) {
+    public Resultado<Usuario> add(@RequestBody Usuario usuario) {
         logger.info("add [001] usuario: {}", usuario);
         return usuarioService.saveUsuario(usuario);
     }

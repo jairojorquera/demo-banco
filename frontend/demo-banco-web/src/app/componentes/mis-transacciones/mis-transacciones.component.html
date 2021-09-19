@@ -12,6 +12,9 @@
 
     </div>
     <div class="card-body">
+
+        <div class="alert alert-warning" *ngIf="collectionSize == 0">No ha realizado ninguna transacción!</div>
+
         <div  *ngIf="collectionSize > 9" class="d-flex justify-content-between p-2">
             <ngb-pagination [collectionSize]="transacciones.length" [(page)]="page" [pageSize]="pageSize"
                 [boundaryLinks]="true">
@@ -40,7 +43,7 @@
             </select>
         </div>
 
-        <table class="table table-bordered table-striped table-sm">
+        <table *ngIf="collectionSize > 0" class="table table-bordered table-striped table-sm">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col" >#</th>

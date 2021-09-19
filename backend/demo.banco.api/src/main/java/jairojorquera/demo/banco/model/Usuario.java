@@ -1,6 +1,6 @@
 package jairojorquera.demo.banco.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Entity;
@@ -13,13 +13,15 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "usuarios")
-public class Usuario implements Serializable, UsuarioPublico {
+public class Usuario implements Serializable {
 
     @Id
     private String rut;
     private String nombre;
     private String email;
     private BigDecimal saldo;
+    
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     public Usuario() {
@@ -74,7 +76,7 @@ public class Usuario implements Serializable, UsuarioPublico {
 
     @Override
     public String toString() {
-        return "Usuario{" + "rut=" + rut + ", nombre=" + nombre + ", email=" + email + ", saldo=" + saldo + ", password=" + password + '}';
+        return "Usuario{" + "rut=" + rut + ", nombre=" + nombre + ", email=" + email + ", saldo=" + saldo +'}';
     }
 
 
