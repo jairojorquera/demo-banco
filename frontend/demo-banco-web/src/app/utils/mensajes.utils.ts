@@ -13,6 +13,12 @@ export class Mensajes {
         Swal.showLoading();
     }
 
+    static stopLoading() {
+        Swal.close();
+
+    }
+
+
     public validacionesPendientes() {
 
         Swal.fire({

@@ -3,6 +3,7 @@ import { Transaccion } from '../../modelo/transaccion';
 import { TransaccionesService } from '../../servicios/transacciones.service';
 import { StorageService } from '../../servicios/storage.service';
 import { Mensajes } from 'src/app/utils/mensajes.utils';
+import { first } from 'rxjs/operators'
 
 const FILTER_PAG_REGEX = /[^0-9]/g;
 
@@ -26,13 +27,16 @@ export class MisTransaccionesComponent implements OnInit {
   ngOnInit(): void {
 
     let sesion = this.storageService.getSesion();
-    this.transaccionesService.find(sesion.usuario.rut).subscribe(
+
+    Mensajes.loading();
+    this.transaccionesService.find(sesion.usuario.rut).pipe(first()).subscribe(
       data => {
         this.transacciones = data.map(x => Object.assign(new Transaccion(), x));
         this.ingresos = this.calcularTotalIngresos();
         this.egresos = this.calcularTotalEgresos();
         this.total = this.ingresos - this.egresos;
         this.collectionSize = this.transacciones.length;
+        Mensajes.stopLoading();
       },
       error => {
         new Mensajes().errorOperacion(["Error al intentar conectarse al servidor. Por favor intentelo más tarde."]);

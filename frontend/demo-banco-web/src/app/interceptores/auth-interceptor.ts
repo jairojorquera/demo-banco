@@ -9,8 +9,6 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private storageService: StorageService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    console.log("interceptando hacia " + req.url);
-
     const exclusionSesion = /sesiones/gi;
     const exclusionUsuario = /usuarios/gi;
 

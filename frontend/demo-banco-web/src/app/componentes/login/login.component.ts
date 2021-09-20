@@ -22,8 +22,6 @@ export class LoginComponent implements OnInit {
   submitted = false;
   userForm!: FormGroup;
 
-  usuario = "";
-  password = "";
   sesion!: Sesion;
 
 
@@ -47,44 +45,44 @@ export class LoginComponent implements OnInit {
     Mensajes.loading();
 
 
-    this.sesionService.login(this.usuario, this.password)
-      
+    this.sesionService.login(
+      this.userForm.controls.usuario.value
+      , this.userForm.controls.password.value
+    ).subscribe(resultado => {
 
-      .subscribe(resultado => {
+      if (resultado.status != "SUCCESS") {
+        new Mensajes().errorOperacion(resultado.messages);
+        return;
+      }
 
-        if (resultado.status != "SUCCESS") {
-          new Mensajes().errorOperacion(resultado.messages);
-          return;
-        }
+      let data = resultado.data;
 
-        let data = resultado.data;
+      this.sesion = data;
 
-        this.sesion = data;
+      this.storageService.setSesion(this.sesion);
+      console.log(JSON.stringify(data));
+      Swal.fire({
+        title: 'Bienvenido/a',
+        text: 'Bienvenido/a ' + data.usuario.nombre,
+        icon: 'info',
+        timer: 2000
 
-        this.storageService.setSesion(this.sesion);
-        console.log(JSON.stringify(data));
+      }).then((result) => {
+        window.location.replace("/misTransacciones");
+      })
+
+    }, (error: HttpErrorResponse) => {
+      if (error.status == 404) {
         Swal.fire({
-          title: 'Bienvenido/a',
-          text: 'Bienvenido/a ' + data.usuario.nombre,
-          icon: 'info',
-          timer: 2000
+          title: 'Error!',
+          text: 'Usuario o contraseña inválida',
+          icon: 'error',
+          timer: 3000
 
-        }).then((result) => {
-          window.location.replace("/misTransacciones");
         })
 
-      }, (error: HttpErrorResponse) => {
-        if (error.status == 404) {
-          Swal.fire({
-            title: 'Error!',
-            text: 'Usuario o contraseña inválida',
-            icon: 'error',
-            timer: 3000
-
-          })
-
-        }
-      });
+      }
+    });
 
 
 
@@ -94,7 +92,7 @@ export class LoginComponent implements OnInit {
   isInvalidRut() {
     return (this.submitted && this.userForm.controls.usuario.errors != null);
   }
-  
+
   isInvalidPassword() {
     return (this.submitted && this.userForm.controls.password.errors != null);
   }
