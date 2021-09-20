@@ -63,7 +63,7 @@ export class DepositosComponent implements OnInit {
       this.transaccionesService.save(transaccion).subscribe(resultado => {
 
         if (resultado.status != "SUCCESS") {
-          new Mensajes().errorOperacion(resultado.messages);
+          Mensajes.warningOperacion(resultado.messages);
           return;
         }
 
@@ -94,7 +94,7 @@ export class DepositosComponent implements OnInit {
 
       },
         error => {
-          new Mensajes().errorOperacion(["Se presentó un error al intentar registrar el depósito. Por favor revise su cuenta e inténtelo en unos minutos si lo desea"]);
+          Mensajes.errorOperacion(["Se presentó un error al intentar registrar el depósito. Por favor revise su cuenta e inténtelo en unos minutos si lo desea"]);
 
         });
 

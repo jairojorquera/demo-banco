@@ -39,7 +39,7 @@ export class MisTransaccionesComponent implements OnInit {
         Mensajes.stopLoading();
       },
       error => {
-        new Mensajes().errorOperacion(["Error al intentar conectarse al servidor. Por favor inténtelo más tarde."]);
+        Mensajes.errorOperacion(["Error al intentar conectarse al servidor. Por favor inténtelo más tarde."]);
 
       });
   }

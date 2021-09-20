@@ -50,20 +50,16 @@ export class TransferenciaComponent implements OnInit {
       transaccion.rutRelacionado = this.rut;
       transaccion.tipo = 0;
 
-      var formatter = new Intl.NumberFormat('en-US', {
+      var formatter = new Intl.NumberFormat('es-CL', {
         style: 'currency',
         currency: 'CLP',
-
-        // These options are needed to round to whole numbers if that's what you want.
-        //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-        //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
       });
 
 
       this.transaccionesService.save(transaccion).subscribe(resultado => {
 
         if (resultado.status != "SUCCESS") {
-          new Mensajes().errorOperacion(resultado.messages);
+          Mensajes.warningOperacion(resultado.messages);
           return;
         }
 
@@ -94,7 +90,7 @@ export class TransferenciaComponent implements OnInit {
 
       },
         error => {
-          new Mensajes().errorOperacion(["Se presentó un error al intentar registrar la transferencia. Por favor revise su cuenta e inténtelo en unos minutos si lo desea"]);
+          Mensajes.errorOperacion(["Se presentó un error al intentar registrar la transferencia. Por favor revise su cuenta e inténtelo en unos minutos"]);
 
         });
 

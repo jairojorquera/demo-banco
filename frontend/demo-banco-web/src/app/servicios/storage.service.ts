@@ -17,11 +17,11 @@ export class StorageService {
   }
 
   setSesion(sesion: Sesion): void {
-    localStorage.setItem('currentUser', JSON.stringify(sesion));
+    sessionStorage.setItem('currentUser', JSON.stringify(sesion));
   }
 
   borrarSesion(): void {
-    localStorage.removeItem('currentUser');
+    sessionStorage.removeItem('currentUser');
     window.location.replace("/misTransacciones");
   }
 
@@ -31,10 +31,10 @@ export class StorageService {
   }
 
   loadSessionData() {
-    var sessionStr = localStorage.getItem('currentUser');
+    var sessionStr = sessionStorage.getItem('currentUser');
     if (sessionStr) {
       try {
-        this.sesion = JSON.parse(localStorage.getItem('currentUser')!) as Sesion;
+        this.sesion = JSON.parse(sessionStorage.getItem('currentUser')!) as Sesion;
         this.sesionActiva = true;        
       } catch (error) {
         this.sesionActiva = false;

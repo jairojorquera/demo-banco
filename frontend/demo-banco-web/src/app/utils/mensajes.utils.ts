@@ -31,7 +31,22 @@ export class Mensajes {
 
     }
 
-    public errorOperacion(mensajes: string[]) {
+
+    static warningOperacion(mensajes: string[]) {
+        let htmlMensaje:string= "";
+        mensajes.forEach(m => htmlMensaje += m + "<br/>");
+
+        Swal.fire({
+            title: "Problemas:",
+            icon: 'warning',
+            timer: 20000,
+            confirmButtonText: 'Cerrar',
+            html: htmlMensaje
+        })
+
+    }
+
+    static errorOperacion(mensajes: string[]) {
         let htmlMensaje = "Lamentamos informar que la operación solicitada no se pudo realizar";
         if (mensajes.length === 1) {
             htmlMensaje += ": " + mensajes;
@@ -43,7 +58,7 @@ export class Mensajes {
         }
 
         Swal.fire({
-            title: 'Ha ocurrido un problema',
+            title: "Error:",
             icon: 'error',
             timer: 20000,
             confirmButtonText: 'Cerrar',

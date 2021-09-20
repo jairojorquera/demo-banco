@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
     ).subscribe(resultado => {
 
       if (resultado.status != "SUCCESS") {
-        new Mensajes().errorOperacion(resultado.messages);
+        Mensajes.warningOperacion(resultado.messages);
         return;
       }
 
@@ -59,16 +59,16 @@ export class LoginComponent implements OnInit {
 
       this.sesion = data;
 
-      this.storageService.setSesion(this.sesion);      
+      this.storageService.setSesion(this.sesion);
       Swal.fire({
         title: 'Bienvenido/a',
         text: 'Estimado/a ' + data.usuario.nombre,
         icon: 'info',
-        timer: 2000 ,
-        showConfirmButton:false,
-        showLoaderOnConfirm:true
+        timer: 2000,
+        showConfirmButton: false,
+        showLoaderOnConfirm: true
       }).then((result) => {
-        
+
         window.location.replace("/misTransacciones");
       })
 

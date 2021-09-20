@@ -3,28 +3,28 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Transaccion } from '../modelo/transaccion';
 import { Resultado } from '../modelo/resultado';
 import { Observable } from 'rxjs';
+import { URL_TRANSACCIONES } from '../utils/app.constantes';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class TransaccionesService {
 
-  private transaccionUrl: string;
-
   constructor(private http: HttpClient) {
-    this.transaccionUrl = 'https://demobanco.herokuapp.com/transacciones';
+
   }
 
   public findAll(): Observable<Transaccion[]> {
-    return this.http.get<Transaccion[]>(this.transaccionUrl);
+    return this.http.get<Transaccion[]>(URL_TRANSACCIONES);
   }
 
   public find(rut: string): Observable<Transaccion[]> {
-    let url = this.transaccionUrl + "/" + rut;
+    let url = URL_TRANSACCIONES + "/" + rut;
     return this.http.get<Transaccion[]>(url);
   }
 
   public save(transaccion: Transaccion) {
-    return this.http.post<Resultado<Transaccion>>(this.transaccionUrl, transaccion);
+    return this.http.post<Resultado<Transaccion>>(URL_TRANSACCIONES, transaccion);
   }
 }

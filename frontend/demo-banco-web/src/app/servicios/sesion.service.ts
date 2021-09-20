@@ -4,22 +4,27 @@ import { Observable } from 'rxjs';
 import { Credenciales } from '../modelo/credenciales';
 import { Resultado } from '../modelo/resultado';
 import { Sesion } from '../modelo/sesion';
-import { Usuario } from '../modelo/usuario';
+import { URL_SESIONES } from '../utils/app.constantes';
+import { StorageService } from './storage.service';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class SesionService {
-  url: string;
 
-  constructor(private http: HttpClient) {
-    this.url = 'https://demobanco.herokuapp.com/sesiones';
-
+  constructor(private http: HttpClient, private storageService: StorageService) {
   }
 
   public login(usuario: string, password: string): Observable<Resultado<Sesion>> {
     let credenciales: Credenciales = new Credenciales(usuario, password);
-    return this.http.post<Resultado<Sesion>>(this.url, credenciales);
+    return this.http.post<Resultado<Sesion>>(URL_SESIONES, credenciales);
   }
+
+  public cerrarSesion() {
+    let sesion: Sesion = this.storageService.getSesion();
+    return this.http.delete(URL_SESIONES + "/" + sesion.usuario.rut + "/" + sesion.token);
+  }
+
 
 }

@@ -60,11 +60,16 @@ public class SesionService {
         return Resultado.of(sesion);
     }
 
+    public Resultado cerrarSesion(String rut, String token) {
+        Resultado rtdo = accionService.cerrarSesion(rut, token);
+        return rtdo;
+    }
+
     private Resultado<String> generarToken(String usuario) {
-        try {            
+        try {
             Algorithm algorithm = Algorithm.HMAC256(secreto);
             UUID uuid = UUID.randomUUID();
-            
+
             return Resultado.of(JWT.create()
                     .withIssuer("demo.banco")
                     .withSubject(usuario)
@@ -75,4 +80,5 @@ public class SesionService {
             return Resultado.error("Error al generar el token");
         }
     }
+
 }

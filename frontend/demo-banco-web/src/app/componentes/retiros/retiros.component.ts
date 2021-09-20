@@ -62,7 +62,7 @@ export class RetirosComponent implements OnInit {
         resultado => {
 
           if (resultado.status != "SUCCESS") {
-            new Mensajes().errorOperacion(resultado.messages);
+            Mensajes.warningOperacion(resultado.messages);
             return;
           }
 
@@ -93,7 +93,7 @@ export class RetirosComponent implements OnInit {
 
         },
         error => {
-          new Mensajes().errorOperacion(["Se presentó un error al intentar registrar el retiro. Por favor revise su cuenta e inténtelo en unos minutos si lo desea"]);
+          Mensajes.errorOperacion( ["Se presentó un error al intentar registrar el retiro. Por favor revise su cuenta e inténtelo en unos minutos"]);
 
         });
 

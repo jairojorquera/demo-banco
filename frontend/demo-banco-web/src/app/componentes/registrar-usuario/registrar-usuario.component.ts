@@ -45,7 +45,7 @@ export class RegistrarUsuarioComponent implements OnInit {
     this.usuarioService.save(usuario)
       .subscribe(resultado => {
         if (resultado.status != "SUCCESS") {
-          new Mensajes().errorOperacion(resultado.messages);
+          Mensajes.warningOperacion(resultado.messages);
           return;
         }
 
@@ -63,7 +63,7 @@ export class RegistrarUsuarioComponent implements OnInit {
         })
       },
         error => {
-          new Mensajes().errorOperacion(["Error al intentar conectarse al servidor. Por favor inténtelo más tarde."]);
+          Mensajes.errorOperacion(["Error al intentar conectarse al servidor. Por favor inténtelo más tarde."]);
         });
 
 

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Sesion } from './modelo/sesion';
+import { SesionService } from './servicios/sesion.service';
 import { StorageService } from './servicios/storage.service';
+import { Mensajes } from './utils/mensajes.utils';
 
 @Component({
   selector: 'app-root',
@@ -14,14 +16,17 @@ export class AppComponent {
 
 
 
-  constructor(private storageService: StorageService) { }
+  constructor(private storageService: StorageService, private sesionService: SesionService) { }
 
   ngOnInit(): void {
     this.sesion = this.storageService.getSesion();
   }
 
   onCerrarSesion(): void {
-    this.storageService.borrarSesion();
+    Mensajes.loading();
+    this.sesionService.cerrarSesion().subscribe(data => {
+      this.storageService.borrarSesion();
+    });
 
   }
 }
