@@ -12,7 +12,7 @@ export class TransaccionesService {
   private transaccionUrl: string;
 
   constructor(private http: HttpClient) {
-    this.transaccionUrl = 'http://localhost:8080/transacciones';
+    this.transaccionUrl = 'https://demobanco.herokuapp.com/transacciones';
   }
 
   public findAll(): Observable<Transaccion[]> {

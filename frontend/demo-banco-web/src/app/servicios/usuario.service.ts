@@ -11,7 +11,7 @@ export class UsuarioService {
   private usuarioUrl: string;
 
   constructor(private http: HttpClient) {
-    this.usuarioUrl = 'http://localhost:8080/usuarios';
+    this.usuarioUrl = 'https://demobanco.herokuapp.com/usuarios';
 
   }
 

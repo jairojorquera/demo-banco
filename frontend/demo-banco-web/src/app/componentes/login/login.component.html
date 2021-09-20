@@ -1,25 +1,34 @@
 <div class="container">
-    <h1 class="h3 mb-3 fw-normal text-center">Iniciar sesión</h1>
-    <div class="form-group">
-        <div class="col-md-12">
-            <label for="floatingInput">R.U.T.</label>
-            <input type="text" [(ngModel)]="usuario" class="form-control" id="floatingInput" placeholder="xxxxxxxx-x">
-            <small id="rutHelp" class="form-text text-muted">Ingrese su R.U.T. sin puntos y con guión</small>
+    <form [formGroup]="userForm">
+        <h1 class="h3 mb-3 fw-normal text-center">Iniciar sesión</h1>
+        <div class="form-group">
+            <div class="col-md-12">
+                <label for="floatingInput">R.U.T.</label>
+                <input type="text" [(ngModel)]="usuario" class="form-control" id="floatingInput"
+                    placeholder="xxxxxxxx-x" required formControlName="usuario"
+                    [ngClass]="{ 'is-invalid': isInvalidRut() }">
+                <small id="rutHelp" class="form-text text-muted">Ingrese su R.U.T. sin puntos y con guión</small>
+                <div class="invalid-feedback">
+                    Debe ingresar un R.U.T. válido
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-12">
-            <label for="floatingPassword">Password</label>
-            <input type="password" [(ngModel)]="password" class="form-control" id="floatingPassword"
-                placeholder="Password">
+        <div class="form-group">
+            <div class="col-md-12">
+                <label for="floatingPassword">Password</label>
+                <input type="password" [(ngModel)]="password" class="form-control" id="floatingPassword" required
+                    placeholder="Password" formControlName="password"  [ngClass]="{ 'is-invalid': isInvalidPassword() }">
+                <div class="invalid-feedback">
+                    Debe ingresar su password
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button class="w-100 btn btn-lg btn-primary" type="button" (click)="onLogin()">Iniciar sesión</button>
+
+            </div>
 
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <button class="w-100 btn btn-lg btn-primary" type="button" (click)="onLogin()">Iniciar sesión</button>
-
-        </div>
-
-    </div>
+    </form>
 </div>

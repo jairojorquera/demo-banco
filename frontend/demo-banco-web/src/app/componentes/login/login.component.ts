@@ -1,15 +1,16 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Sesion } from '../../modelo/sesion';
 import { UsuarioService } from '../../servicios/usuario.service';
 import { StorageService } from '../../servicios/storage.service';
 import { SesionService } from '../../servicios/sesion.service';
+
+import { Sesion } from '../../modelo/sesion';
 import { Mensajes } from '../../utils/mensajes.utils';
 
 import Swal from 'sweetalert2';
-
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,9 @@ import Swal from 'sweetalert2';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  registered = false;
+  submitted = false;
+  userForm!: FormGroup;
 
   usuario = "";
   password = "";
@@ -24,16 +28,28 @@ export class LoginComponent implements OnInit {
 
 
   constructor(private userService: UsuarioService, private storageService: StorageService, private sesionService: SesionService,
-    private router: Router) { }
+    private router: Router, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-
+    this.userForm = this.formBuilder.group({
+      usuario: ['', [Validators.required, Validators.minLength(9), Validators.pattern('^[0-9]+-[0-9kK]{1}$')]],
+      password: ['', Validators.required],
+    });
   }
 
   onLogin(event?: MouseEvent) {
+    this.submitted = true;
+    if (this.userForm.invalid == true) {
+      new Mensajes().validacionesPendientes();
+      return;
+    }
+
+    Mensajes.loading();
 
 
     this.sesionService.login(this.usuario, this.password)
+      
+
       .subscribe(resultado => {
 
         if (resultado.status != "SUCCESS") {
@@ -43,7 +59,7 @@ export class LoginComponent implements OnInit {
 
         let data = resultado.data;
 
-        this.sesion = data;        
+        this.sesion = data;
 
         this.storageService.setSesion(this.sesion);
         console.log(JSON.stringify(data));
@@ -56,9 +72,6 @@ export class LoginComponent implements OnInit {
         }).then((result) => {
           window.location.replace("/misTransacciones");
         })
-
-
-
 
       }, (error: HttpErrorResponse) => {
         if (error.status == 404) {
@@ -76,5 +89,13 @@ export class LoginComponent implements OnInit {
 
 
     if (event) { event.stopPropagation(); }
+  }
+
+  isInvalidRut() {
+    return (this.submitted && this.userForm.controls.usuario.errors != null);
+  }
+  
+  isInvalidPassword() {
+    return (this.submitted && this.userForm.controls.password.errors != null);
   }
 }

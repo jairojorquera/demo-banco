@@ -6,6 +6,13 @@ export class Mensajes {
 
     };
 
+    static loading() {
+        Swal.fire({
+            title: 'Cargando'
+        });
+        Swal.showLoading();
+    }
+
     public validacionesPendientes() {
 
         Swal.fire({

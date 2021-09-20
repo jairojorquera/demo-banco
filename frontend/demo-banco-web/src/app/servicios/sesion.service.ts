@@ -13,7 +13,7 @@ export class SesionService {
   url: string;
 
   constructor(private http: HttpClient) {
-    this.url = 'http://localhost:8080/sesiones';
+    this.url = 'https://demobanco.herokuapp.com/sesiones';
 
   }
 
