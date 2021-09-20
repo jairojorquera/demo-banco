@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author jjorquerar
  */
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*")
 @RequestMapping("/transacciones")
 public class TransaccionController {
 
@@ -28,11 +28,13 @@ public class TransaccionController {
 
     @GetMapping()
     public List<Transaccion> list() {
+        logger.info("list[INI]");
         return transaccionService.getTransacciones();
     }
 
     @GetMapping("/{rut}")
     public List<Transaccion> get(@PathVariable String rut) {
+        logger.info("get[INI] rut: {}", rut);
         return transaccionService.getTransacciones(rut);
 
     }

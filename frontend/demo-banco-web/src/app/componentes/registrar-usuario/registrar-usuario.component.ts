@@ -63,7 +63,7 @@ export class RegistrarUsuarioComponent implements OnInit {
         })
       },
         error => {
-          new Mensajes().errorOperacion(["Error al intentar conectarse al servidor. Por favor intentelo más tarde."]);
+          new Mensajes().errorOperacion(["Error al intentar conectarse al servidor. Por favor inténtelo más tarde."]);
         });
 
 

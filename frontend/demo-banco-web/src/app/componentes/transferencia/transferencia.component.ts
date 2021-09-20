@@ -22,7 +22,7 @@ export class TransferenciaComponent implements OnInit {
   }
 
   onConfirmar() {
-    if (this.monto > 0) {
+    if (this.monto > 0 && this.rut) {
       Swal.fire({
         title: 'Confirmar transferencia',
         icon: 'warning',
@@ -77,7 +77,7 @@ export class TransferenciaComponent implements OnInit {
           confirmButtonText: 'Imprimir',
           confirmButtonColor: '#3085d6',
           denyButtonColor: '#28a745',
-          denyButtonText: 'Hacer otro retiro',
+          denyButtonText: 'Hacer otra transferencia',
           html: '<table style="width:100%; text-align: left">' +
             '<tr><th>ID</th><td>' + data.id + '</td></tr>' +
             '<tr><th>Fecha</th><td>' + new Date().toLocaleDateString() + '</td></tr>' +
@@ -93,10 +93,10 @@ export class TransferenciaComponent implements OnInit {
 
 
       },
-      error => {
-        new Mensajes().errorOperacion(["Error al intentar conectarse al servidor. Por favor intentelo más tarde."]);
+        error => {
+          new Mensajes().errorOperacion(["Se presentó un error al intentar registrar la transferencia. Por favor revise su cuenta e inténtelo en unos minutos si lo desea"]);
 
-      });
+        });
 
     }
 

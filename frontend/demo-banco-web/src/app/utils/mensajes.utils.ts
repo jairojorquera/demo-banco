@@ -32,7 +32,7 @@ export class Mensajes {
     }
 
     public errorOperacion(mensajes: string[]) {
-        let htmlMensaje = "Lamentamos informar que la operación no pudo ser realizada";
+        let htmlMensaje = "Lamentamos informar que la operación solicitada no se pudo realizar";
         if (mensajes.length === 1) {
             htmlMensaje += ": " + mensajes;
         } else if (mensajes.length > 1) {

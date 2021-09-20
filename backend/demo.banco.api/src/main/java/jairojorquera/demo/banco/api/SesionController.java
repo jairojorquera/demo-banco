@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author jjorquerar
  */
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RequestMapping("/sesiones")
 public class SesionController {
     

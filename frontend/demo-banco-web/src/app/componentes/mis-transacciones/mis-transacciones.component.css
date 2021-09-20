@@ -1,0 +1,17 @@
+@media only screen and (max-width: 760px) {
+    #mobilecontainer {
+        display: block;
+    }
+    #webcontainer {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 760px) {
+    #mobilecontainer {
+        display: none;
+    }
+    .webcontainer {
+        display: block;
+    }
+}

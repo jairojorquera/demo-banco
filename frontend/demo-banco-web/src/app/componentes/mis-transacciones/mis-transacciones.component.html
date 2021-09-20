@@ -1,84 +1,109 @@
-<div class="card">
-    <div class="card-header ">
-        <div class="d-flex pt-3">
-            <div class="pb-3 mb-0 lh-sm w-100">
-                <div class="d-flex justify-content-between">
-                    <strong class="text-gray-dark h5 font-weight-bold">Mis transacciones</strong>
-                    <div class="h5 font-weight-bold">Saldo disponible: ${{ total | currency:'CLP':''}}</div>
-                </div>
+<div>
+    <div id="webcontainer" class="card">
+        <div class="card-header ">
+            <div class="d-flex pt-3">
+                <div class="pb-3 mb-0 lh-sm w-100">
+                    <div class="d-flex justify-content-between">
+                        <strong class="text-gray-dark h5 font-weight-bold">Mis transacciones</strong>
+                        <div class="h5 font-weight-bold">Saldo disponible: ${{ total | currency:'CLP':''}}</div>
+                    </div>
 
+                </div>
             </div>
         </div>
+        <div class="card-body">
 
-    </div>
-    <div class="card-body">
+            <div class="alert alert-warning" *ngIf="collectionSize == 0">No ha realizado ninguna transacción!</div>
 
-        <div class="alert alert-warning" *ngIf="collectionSize == 0">No ha realizado ninguna transacción!</div>
+            <div *ngIf="collectionSize > 9" class="d-flex justify-content-between p-2">
+                <ngb-pagination [collectionSize]="transacciones.length" [(page)]="page" [pageSize]="pageSize"
+                    [boundaryLinks]="true">
+                    <ng-template ngbPaginationPages let-page let-pages="pages">
+                        <li class="ngb-custom-pages-item" *ngIf="pages.length > 0">
+                            <div class="form-group d-flex flex-nowrap px-2">
+                                <label id="paginationInputLabel" for="paginationInput"
+                                    class="col-form-label mr-2 ml-1">Página</label>
+                                <input #i type="text" inputmode="numeric" pattern="[0-9]*"
+                                    class="form-control custom-pages-input" id="paginationInput" [value]="page"
+                                    (keyup.enter)="selectPage(i.value)" (blur)="selectPage(i.value)"
+                                    (input)="formatInput($any($event).target)"
+                                    aria-labelledby="paginationInputLabel paginationDescription"
+                                    style="width: 2.5rem" />
+                                <span id="paginationDescription" class="col-form-label text-nowrap px-2">
+                                    de {{pages.length}}</span>
+                            </div>
+                        </li>
+                    </ng-template>
 
-        <div  *ngIf="collectionSize > 9" class="d-flex justify-content-between p-2">
-            <ngb-pagination [collectionSize]="transacciones.length" [(page)]="page" [pageSize]="pageSize"
-                [boundaryLinks]="true">
-                <ng-template ngbPaginationPages let-page let-pages="pages">
-                    <li class="ngb-custom-pages-item" *ngIf="pages.length > 0">
-                        <div class="form-group d-flex flex-nowrap px-2">
-                            <label id="paginationInputLabel" for="paginationInput"
-                                class="col-form-label mr-2 ml-1">Página</label>
-                            <input #i type="text" inputmode="numeric" pattern="[0-9]*"
-                                class="form-control custom-pages-input" id="paginationInput" [value]="page"
-                                (keyup.enter)="selectPage(i.value)" (blur)="selectPage(i.value)"
-                                (input)="formatInput($any($event).target)"
-                                aria-labelledby="paginationInputLabel paginationDescription" style="width: 2.5rem" />
-                            <span id="paginationDescription" class="col-form-label text-nowrap px-2">
-                                de {{pages.length}}</span>
-                        </div>
-                    </li>
-                </ng-template>
+                </ngb-pagination>
 
-            </ngb-pagination>
-            
-            <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="pageSize">
-                <option [ngValue]="10">10 por página</option>
-                <option [ngValue]="20">20 por página</option>
-                <option [ngValue]="50">50 por página</option>
-            </select>
+                <select class="custom-select" style="width: auto" name="pageSize" [(ngModel)]="pageSize">
+                    <option [ngValue]="10">10 por página</option>
+                    <option [ngValue]="20">20 por página</option>
+                    <option [ngValue]="50">50 por página</option>
+                </select>
+            </div>
+
+            <table *ngIf="collectionSize > 0" class="table table-bordered table-striped table-sm">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th class="col-1" scope="col">Fecha</th>
+                        <th class="col-1" scope="col">Hora</th>
+                        <th scope="col">Descripción</th>
+                        <th class="col-2" scope="col">Ingreso ($)</th>
+                        <th class="col-2" scope="col">Egreso ($)</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr *ngFor="let transaccion of transacciones | slice: (page-1) * pageSize : page * pageSize">
+                        <td>{{ transaccion.id }}</td>
+                        <td>{{ transaccion.fecha | date:'dd/MM/yyyy' }}</td>
+                        <td>{{ transaccion.fecha | date:'HH:mm' }}</td>
+                        <td>{{ transaccion.customDescripcion() }}</td>
+                        <td *ngIf="transaccion.tipo == 1" class="text-right">{{ transaccion.monto | currency:'CLP':'' }}
+                        </td>
+                        <td *ngIf="transaccion.tipo == 0" class="text-right"></td>
+
+                        <td *ngIf="transaccion.tipo == 0" class="text-right">{{ -transaccion.monto | currency:'CLP':''
+                            }}
+                        </td>
+                        <td *ngIf="transaccion.tipo == 1" class="text-right"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="text-right font-weight-bold">Totales:</td>
+                        <td class="text-right font-weight-bold"> ${{ ingresos | currency:'CLP':'' }}</td>
+                        <td class="text-right font-weight-bold"> ${{ egresos | currency:'CLP':''}}</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
         </div>
+    </div>
+    <div id="mobilecontainer" class="card">
+        <div class="card-header ">
+            <strong class="text-gray-dark h5 font-weight-bold">Mis transacciones</strong>
+            <hr />
+            <div>Saldo disponible: ${{ total | currency:'CLP':''}}</div>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-warning" *ngIf="collectionSize == 0">No ha realizado ninguna transacción!</div>
+            <div *ngFor="let transaccion of transacciones">
 
-        <table *ngIf="collectionSize > 0" class="table table-bordered table-striped table-sm">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col" >#</th>
-                    <th class="col-1" scope="col">Fecha</th>
-                    <th class="col-1" scope="col">Hora</th>
-                    <th scope="col">Descripción</th>
-                    <th class="col-2" scope="col">Ingreso ($)</th>
-                    <th class="col-2" scope="col">Egreso ($)</th>
-
-                </tr>
-            </thead>
-            <tbody>
-
-                <tr *ngFor="let transaccion of transacciones | slice: (page-1) * pageSize : page * pageSize">
-                    <td>{{ transaccion.id }}</td>
-                    <td>{{ transaccion.fecha | date:'dd/MM/yyyy' }}</td>
-                    <td>{{ transaccion.fecha | date:'HH:mm' }}</td>
-                    <td>{{ transaccion.customDescripcion() }}</td>
-                    <td *ngIf="transaccion.tipo == 1" class="text-right">{{ transaccion.monto | currency:'CLP':'' }}
-                    </td>
-                    <td *ngIf="transaccion.tipo == 0" class="text-right"></td>
-
-                    <td *ngIf="transaccion.tipo == 0" class="text-right">{{ -transaccion.monto | currency:'CLP':'' }}
-                    </td>
-                    <td *ngIf="transaccion.tipo == 1" class="text-right"></td>
-                </tr>
-                <tr>
-                    <td colspan="4" class="text-right font-weight-bold">Totales:</td>
-                    <td class="text-right font-weight-bold"> ${{ ingresos | currency:'CLP':'' }}</td>
-                    <td class="text-right font-weight-bold"> ${{ egresos | currency:'CLP':''}}</td>
-                </tr>
-
-            </tbody>
-
-        </table>
+               
+            </div>
+            <div *ngFor="let transaccion of transacciones" class="alert alert-secondary" role="alert">
+                <small># {{ transaccion.id }} - {{ transaccion.fecha | date:'dd/MM/yyyy' }} {{ transaccion.fecha | date:'HH:mm' }}</small>
+                <h4 class="alert-heading">$ {{ transaccion.monto | currency:'CLP':'' }}</h4>                
+                <p class="mb-0"> </p>                
+                <p class="mb-0">{{ transaccion.customDescripcion() }}</p>
+                
+              </div>
+        </div>
 
     </div>
 </div>

@@ -40,6 +40,7 @@ export class DepositosComponent implements OnInit {
   onDeposito(event?: MouseEvent) {
 
     if (this.monto > 0) {
+      Mensajes.loading();
       let sesion = this.storageService.getSesion();
 
       let transaccion = new Transaccion();
@@ -74,6 +75,8 @@ export class DepositosComponent implements OnInit {
           timer: 20000,
           showDenyButton: true,
           confirmButtonText: 'Imprimir',
+          confirmButtonColor: '#3085d6',
+          denyButtonColor: '#28a745',
           denyButtonText: 'Hacer otro depósito',
           html: '<table style="width:100%; text-align: left">' +
             '<tr><th>ID</th><td>' + data.id + '</td></tr>' +
@@ -89,7 +92,11 @@ export class DepositosComponent implements OnInit {
         })
 
 
-      });
+      },
+        error => {
+          new Mensajes().errorOperacion(["Se presentó un error al intentar registrar el depósito. Por favor revise su cuenta e inténtelo en unos minutos si lo desea"]);
+
+        });
 
     }
 
