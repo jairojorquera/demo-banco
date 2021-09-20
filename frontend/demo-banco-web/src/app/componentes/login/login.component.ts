@@ -59,15 +59,16 @@ export class LoginComponent implements OnInit {
 
       this.sesion = data;
 
-      this.storageService.setSesion(this.sesion);
-      console.log(JSON.stringify(data));
+      this.storageService.setSesion(this.sesion);      
       Swal.fire({
         title: 'Bienvenido/a',
-        text: 'Bienvenido/a ' + data.usuario.nombre,
+        text: 'Estimado/a ' + data.usuario.nombre,
         icon: 'info',
-        timer: 2000
-
+        timer: 2000 ,
+        showConfirmButton:false,
+        showLoaderOnConfirm:true
       }).then((result) => {
+        
         window.location.replace("/misTransacciones");
       })
 

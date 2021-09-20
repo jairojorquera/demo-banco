@@ -17,7 +17,7 @@
             <div class="col-md-12">
                 <label for="floatingPassword">Password</label>
                 <input type="password" class="form-control" id="floatingPassword" required
-                    placeholder="Password" formControlName="password"  [ngClass]="{ 'is-invalid': isInvalidPassword() }">
+                    placeholder="Password" formControlName="password" (keyup.enter)="onLogin()"  [ngClass]="{ 'is-invalid': isInvalidPassword() }">
                 <div class="invalid-feedback">
                     Debe ingresar su password
                 </div>

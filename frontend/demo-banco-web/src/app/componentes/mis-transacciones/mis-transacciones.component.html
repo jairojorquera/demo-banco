@@ -98,7 +98,8 @@
             </div>
             <div *ngFor="let transaccion of transacciones" class="alert alert-secondary" role="alert">
                 <small># {{ transaccion.id }} - {{ transaccion.fecha | date:'dd/MM/yyyy' }} {{ transaccion.fecha | date:'HH:mm' }}</small>
-                <h4 class="alert-heading">$ {{ transaccion.monto | currency:'CLP':'' }}</h4>                
+                <h4 class="alert-heading">
+                    $<span *ngIf="transaccion.tipo == 0">-</span>{{ transaccion.monto | currency:'CLP':'' }}</h4>
                 <p class="mb-0"> </p>                
                 <p class="mb-0">{{ transaccion.customDescripcion() }}</p>
                 
